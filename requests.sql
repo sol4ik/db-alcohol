@@ -66,3 +66,63 @@ from alcohol
 -- )
 group by alcohol.name
 order by "participants";
+
+-- для алкоголiка A знайти усiх iнспекторiв, якi забирали його у витверезник принаймнi N
+-- разiв за вказаний перiод (з дати F по дату T);
+	
+SELECT i.name AS inspector
+FROM inspector i
+INNER JOIN closure c ON (i.inspector_id = c.inspector_id)
+INNER JOIN alcoholic a ON (c.alcoholic_id = a.alcoholic_id)
+WHERE c.closure_date > F
+    AND c.closure_date < T
+GROUP BY i.inspector_id, a.name
+HAVING COUNT(c.inspector_id) >= N
+    AND a.name = A
+
+-- для iнспектора I знайти усiх алкоголiкiв, яких вiн забирав хоча б N разiв за вказаний перiод
+-- (з дати F по дату T);
+
+SELECT a.name AS alcoholic
+FROM alcoholic a
+INNER JOIN closure c ON (i.alcoholic_id = c.alcoholic_id)
+INNER JOIN inspector a ON (c.inspector_id = a.inspector_id)
+WHERE c.closure_date > F
+    AND c.closure_date < T
+GROUP BY a.alcoholic_id, i.name
+HAVING COUNT(c.alcoholic_id) >= N
+    AND i.name = I
+
+-- для алкоголiка A знайти усiх iнспекторiв, якi забирали його меншу кiлькiсть разiв нiж
+-- випускали;
+
+SELECT inspector.name AS inspector
+FROM inspector
+INNER JOIN release USING (inspector_id)
+INNER JOIN closure USING (alcoholic_id)
+WHERE alcoholic_id = A
+GROUP BY inspector.inspector_id
+HAVING COUNT(DISTINCT release_id) > COUNT(DISTINCT closure_id)
+
+-- знайти усiх алкоголiкiв, яких забирали у витверезник хоча б N разiв за вказаний перiод (з
+-- дати F по дату T);
+
+SELECT a.name
+FROM alcoholic a
+INNER JOIN closure c ON (a.alcoholic_id = c.alcoholic_id)
+WHERE c.closure_date > F
+    AND c.closure_date < T
+GROUP BY c.alcoholic_id, a.name
+HAVING COUNT(c.alcoholic_id) >= N
+
+-- для алкоголiка A та кожного спиртого напою, що вiн вживав, знайти скiльки разiв за вказаний 
+-- перiод (з дати F по дату T) вiн розпивав напiй у групi з щонайменше N алкоголiкiв;
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+-- SELECT alcohol.name, COUNT() 
+-- FROM alcohol
+-- INNER JOIN group_alcohol USING alcohol_id
+-- INNER JOIN group_alcoholic USING alcoholic_id
+-- WHERE date > '2005-07-07'
+--     AND date < '2100-07-07'
+-- GROUP BY 
