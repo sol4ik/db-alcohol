@@ -77,8 +77,11 @@ CREATE TABLE faints(
 -- the more, the merrier :)
 CREATE TABLE group_alcohol(
 	group_id serial PRIMARY KEY,
+	count_alcoholics integer DEFAULT 1,
 	alcohol_id integer NOT NULL,
 	amount_drunk integer NOT NULL,
+	start_date timestamp NOT NULL,
+	end_date timestamp NOT NULL,
 
 	foreign key (alcohol_id) references alcohol(alcohol_id)
 );
