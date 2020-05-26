@@ -66,7 +66,7 @@ CREATE TABLE escape(
 	foreign key (bed_id) references bed(bed_id)
 );
 CREATE TABLE faints(
-    faint_is serial PRIMARY KEY,
+    faint_id serial PRIMARY KEY,
 	alcoholic_id integer NOT NULL,
 	start_date timestamp NOT NULL,
 	end_date timestamp NOT NULL,
