@@ -1,3 +1,7 @@
+-- 0. database creation
+DROP DATABASE IF EXISTS sober_up;
+CREATE DATABASE sober_up;
+
 -- 1. tables creation
 
 -- subjects of system: alcoholic and inspector
