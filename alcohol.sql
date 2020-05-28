@@ -22,30 +22,10 @@ CREATE TABLE alcohol(
 	name varchar(100) NOT NULL
 );
 --actions involving both alcoholic and inspector
-CREATE TABLE closure(
-    closure_id serial PRIMARY KEY,
-	alcoholic_id integer NOT NULL,
-	inspector_id integer NOT NULL,
-	bed_id integer NOT NULL,
-	closure_date date,
-
-	foreign key (alcoholic_id) references alcoholic(alcoholic_id),
-	foreign key (inspector_id) references inspector(inspector_id),
-    foreign key (bed_id) references bed(bed_id)
-);
-CREATE TABLE release(
-    release_id serial PRIMARY KEY,
-	alcoholic_id integer NOT NULL,
-	inspector_id integer NOT NULL,
-	release_date date,
-
-	foreign key (alcoholic_id) references alcoholic(alcoholic_id),
-	foreign key (inspector_id) references inspector(inspector_id)
-);
-CREATE TABLE migration(
+CREATE TABLE migrations(
     migration_id serial PRIMARY KEY,
-	bed_from integer NOT NULL,
-	bed_to integer NOT NULL,
+	bed_from integer, -- NULL if closure
+	bed_to integer,  -- NULL if release
 	alcoholic_id integer NOT NULL,
 	inspector_id integer NOT NULL,
 	migration_date date,
@@ -55,12 +35,21 @@ CREATE TABLE migration(
 	foreign key (alcoholic_id) references alcoholic(alcoholic_id),
 	foreign key (inspector_id) references inspector(inspector_id)
 );
+CREATE TABLE alcoholic_bed(
+    bed_id integer NOT NULL,
+    alcoholic_id integer NOT NULL,
+    date_from timestamp NOT NULL,
+    date_to timestamp NOT NULL,
+
+    foreign key (bed_id) references bed(bed_id),
+    foreign key (alcoholic_id)references alcoholic(alcoholic_id)
+);
 -- actions involving only alcoholics
 CREATE TABLE escape(
     escape_id serial PRIMARY KEY,
 	alcoholic_id integer NOT NULL,
 	bed_id integer NOT NULL,
-	escape_date date,
+	escape_date date NOT NULL,
 
 	foreign key (alcoholic_id) references alcoholic(alcoholic_id),
 	foreign key (bed_id) references bed(bed_id)
@@ -68,8 +57,8 @@ CREATE TABLE escape(
 CREATE TABLE faints(
     faint_id serial PRIMARY KEY,
 	alcoholic_id integer NOT NULL,
-	start_date timestamp NOT NULL,
-	end_date timestamp NOT NULL,
+	date_from date NOT NULL,
+	date_to date NOT NULL,
 
 	foreign key (alcoholic_id) references alcoholic(alcoholic_id)
 );
@@ -80,8 +69,8 @@ CREATE TABLE group_alcohol(
 	count_alcoholics integer DEFAULT 1,
 	alcohol_id integer NOT NULL,
 	amount_drunk integer NOT NULL,
-	start_date timestamp NOT NULL,
-	end_date timestamp NOT NULL,
+	date_from date NOT NULL,
+	date_to date NOT NULL,
 
 	foreign key (alcohol_id) references alcohol(alcohol_id)
 );
@@ -193,51 +182,29 @@ INSERT INTO alcohol (name) VALUES
 ('Gin');
 
 --actions and events data
-INSERT INTO closure (bed_id, alcoholic_id, inspector_id, closure_date) VALUES
-(1, 9, 1, '2019-11-20'),
-(2, 1, 3, '2020-03-20'),
-(3, 30, 2, '2020-11-05'),
-(4, 12, 12, '2020-02-10'),
-(5, 15, 5, '2020-07-10'),
-(6, 16, 6, '2021-03-20'),
-(7, 7, 10, '2021-04-10'),
-(8, 8,8, '2021-03-20'),
-(9, 11, 9, '2019-12-10'),
-(10, 10, 10, '2020-02-10'),
-(11, 28, 11, '2020-07-10'),
-(12, 12, 4, '2020-08-10'),
-(13, 27, 13, '2020-11-10'),
-(14, 14, 14, '2021-03-30'),
-(15, 15, 15, '2020-05-15'),
-(16, 16, 16, '2021-05-18'),
-(17, 17, 17, '2020-05-10'),
-(18, 6, 18, '2020-12-20'),
-(19, 21, 19, '2019-07-20'),
-(20, 8, 20, '2020-02-20');
-
-INSERT INTO release (alcoholic_id, inspector_id, release_date) VALUES
-(9, 1, '2019-11-30'),
-(1, 3, '2020-03-30'),
-(30, 2, '2020-11-15'),
-(12, 12, '2020-02-20'),
-(15, 5, '2020-07-25'),
-(16, 6, '2021-03-30'),
-(6, 10, '2021-04-25'),
-(8, 8, '2021-03-30'),
-(11, 9, '2019-12-25'),
-(10, 10, '2020-02-20'),
-(28, 11, '2020-07-15'),
-(12, 4, '2020-08-23'),
-(27, 13, '2020-11-20'),
-(14, 14, '2021-04-10'),
-(15, 15, '2020-05-28'),
-(16, 16, '2021-05-25'),
-(17, 17, '2020-05-20'),
-(6, 18, '2020-12-29'),
-(21, 19, '2019-07-31'),
-(8, 20, '2020-02-21');
-
-INSERT INTO migration (bed_from, bed_to,alcoholic_id,inspector_id, migration_date) VALUES
+INSERT INTO migrations (bed_from, bed_to, alcoholic_id, inspector_id, migration_date) VALUES
+-- closures
+(null, 1,  9, 1, '2019-11-20'),
+(null, 2, 1, 3, '2020-03-20'),
+(null, 3, 30, 2, '2020-11-05'),
+(null, 4, 12, 12, '2020-02-10'),
+(null, 5, 15, 5, '2020-07-10'),
+(null, 6, 16, 6, '2021-03-20'),
+(null, 7, 7, 10, '2021-04-10'),
+(null, 8, 8, 8, '2021-03-20'),
+(null, 9, 11, 9, '2019-12-10'),
+(null, 10, 10, 10, '2020-02-10'),
+(null, 11, 28, 11, '2020-07-10'),
+(null, 12, 12, 4, '2020-08-10'),
+(null, 13, 27, 13, '2020-11-10'),
+(null, 14, 14, 14, '2021-03-30'),
+(null, 15, 15, 15, '2020-05-15'),
+(null, 16, 16, 16, '2021-05-18'),
+(null, 17, 17, 17, '2020-05-10'),
+(null, 18, 6, 18, '2020-12-20'),
+(null, 19, 21, 19, '2019-07-20'),
+(null, 20, 8, 20, '2020-02-20'),
+-- bed migrations
 (1, 2, 9, 1, '2019-11-21'),
 (2, 1, 1, 3, '2020-03-22'),
 (3, 4, 30, 2, '2020-11-07'),
@@ -252,7 +219,65 @@ INSERT INTO migration (bed_from, bed_to,alcoholic_id,inspector_id, migration_dat
 (12, 11, 12, 4, '2020-08-12'),
 (13, 11, 27, 13, '2020-11-11'),
 (14, 13, 14, 14, '2021-03-31'),
-(15, 11, 15, 15, '2020-05-19');
+(15, 11, 15, 15, '2020-05-19'),
+-- releases
+(2, null, 9, 1, '2019-11-30'),
+(1, null, 1, 3, '2020-03-30'),
+(4, null, 30, 2, '2020-11-15'),
+(5, null, 12, 12, '2020-02-20'),
+(3, null, 15, 5, '2020-07-25'),
+(5, null, 16, 6, '2021-03-30'),
+(4, null, 6, 10, '2021-04-25'),
+(1, null, 8, 8, '2021-03-30'),
+(8, null, 11, 9, '2019-12-25'),
+(9, null, 10, 10, '2020-02-20'),
+(10, null, 28, 11, '2020-07-15'),
+(11, null, 12, 4, '2020-08-23'),
+(11, null, 27, 13, '2020-11-20'),
+(13, null, 14, 14, '2021-04-10'),
+(11, null, 15, 15, '2020-05-28'),
+(16, null, 16, 16, '2021-05-25'),
+(17, null, 17, 17, '2020-05-20'),
+(18, null, 6, 18, '2020-12-29'),
+(19, null, 21, 19, '2019-07-31'),
+(20, null, 8, 20, '2020-02-21');
+
+INSERT INTO alcoholic_bed (bed_id, alcoholic_id, date_from, date_to) VALUES
+(1, 9, '2019-11-20', '2019-11-21'),
+(2, 1, '2020-03-20', '2020-03-22'),
+(3, 30, '2020-11-05', '2020-11-07'),
+(4, 12, '2020-02-10', '2020-02-13'),
+(5, 15, '2020-07-10', '2020-07-14'),
+(6, 16,'2021-03-20', '2021-03-22'),
+(7, 7, '2021-04-10', '2021-04-13'),
+(8, 8, '2021-03-20', '2021-03-23'),
+(9, 11, '2019-12-10', '2019-12-14'),
+(10, 10, '2020-02-10', '2020-02-13'),
+(11, 28, '2020-07-10', '2020-07-11'),
+(12, 12, '2020-08-10', '2020-08-12'),
+(13, 27, '2020-11-10', '2020-11-11'),
+(14, 14, '2021-03-30', '2021-03-31'),
+(15, 15, '2020-05-15', '2020-05-19'),
+(16, 16, '2021-05-18', '2021-05-25'),
+(17, 17, '2020-05-10', '2020-05-20'),
+(18, 6, '2020-12-20', '2020-12-29'),
+(19, 21, '2019-07-20', '2019-07-31'),
+(20, 8, '2020-02-20', '2020-02-21'),
+(2, 9,'2019-11-21', '2019-11-30'),
+(1, 1, '2020-03-22', '2020-03-30'),
+(4, 30, '2020-11-07', '2020-11-15'),
+(5, 12, '2020-02-13', '2020-02-20'),
+(3, 15, '2020-07-14', '2020-07-25'),
+(5, 16, '2021-03-22', '2021-03-30'),
+(4, 6, '2021-04-13', '2021-04-25'),
+(1, 8, '2021-03-23', '2021-03-30'),
+(8, 11, '2019-12-14', '2019-12-25'),
+(9, 10, '2020-02-13', '2020-02-20'),
+(10, 28, '2020-07-11', '2020-07-15'),
+(11, 12, '2020-08-12', '2020-08-23'),
+(11, 27, '2020-11-11', '2020-11-20'),
+(13, 14, '2021-03-31', '2021-04-10'),
+(11, 15, '2020-05-19', '2020-05-28');
 
 INSERT INTO escape (bed_id, alcoholic_id, escape_date) VALUES
 (1, 9, '2019-11-18'),
@@ -276,7 +301,7 @@ INSERT INTO escape (bed_id, alcoholic_id, escape_date) VALUES
 (19, 21, '2019-07-24'),
 (20, 8, '2020-02-27');
 
-INSERT INTO faints (alcoholic_id, start_date, end_date) VALUES
+INSERT INTO faints (alcoholic_id, date_from, date_to) VALUES
 (1, '2019-11-04 21:00:30', '2019-11-04 21:59:30'),
 (2, '2019-01-04 23:51:52', '2019-01-05 00:02:40'),
 (3, '2019-08-30 04:26:25', '2019-08-30 04:36:47'),
@@ -298,17 +323,17 @@ INSERT INTO faints (alcoholic_id, start_date, end_date) VALUES
 (30, '2020-07-26 10:49:45', '2020-07-26 11:59:43');
 
 -- collective drinking data
-INSERT INTO group_alcohol (alcohol_id, amount_drunk) VALUES
-(2, 39),
-(3, 33),
-(1, 39),
-(5, 37),
-(6, 24),
-(7, 23),
-(8, 40),
-(1, 36),
-(9, 40),
-(10, 31);
+INSERT INTO group_alcohol (alcohol_id, count_alcoholics, amount_drunk, date_from, date_to) VALUES
+(2, 3, 39, '2020-01-01', '2020-01-03'),
+(3, 3, 33, '1999-03-08', '2020-03-09 '),
+(1, 2, 39, '2010-09-01', '2010-09-10'),
+(5, 4, 37, '2020-04-19', '2020-04-20'),
+(6, 3, 24, '2020-02-14', '2020-02-14'),
+(7, 3, 23, '2019-10-10', '2019-10-13'),
+(8, 3, 40, '2018-12-18', '2018-12-25'),
+(1, 3, 36, '2019-12-31', '2020-01-02'),
+(9, 3, 40, '2020-02-02', '2020-02-02'),
+(10, 3, 31, '2017-06-01', '2017-06-04');
 
 INSERT INTO group_alcoholic (group_id,alcoholic_id) VALUES
 (1, 2),

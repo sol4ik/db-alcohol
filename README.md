@@ -26,7 +26,7 @@ The task also includes list of **SQL queries** that have be valid for the data b
 In order to present our data base we created the Entity Relational diagram of it.
 
 
-![Entity Relational diagram of our solution](https://github.com/sol4ik/db-alcohol/blob/master/alcohol.png)
+![Entity Relational diagram of our solution](https://github.com/sol4ik/db-alcohol/blob/master/diagram.png)
 
 Although in the ER-diagram the primary keys are of the form `(alcoholic_id, inspector_id, date)` we recommend to use **surogate key** in real-life implementation
 
