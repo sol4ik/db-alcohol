@@ -31,7 +31,7 @@ In order to present our data base we created the Entity Relational diagram of it
 Although in the ER-diagram the primary keys are of the form `(alcoholic_id, inspector_id, date)` we recommend to use **surogate key** in real-life implementation
 
 ## SQL code
-In root directory of the project you can find two files with `.sql` extension. Here's a short overview of the scripts. 
+In **sql** directory of the project you can find two files with `.sql` extension. Here's a short overview of the scripts. 
 
 **alcohol.sql**
 
@@ -41,8 +41,25 @@ In root directory of the project you can find two files with `.sql` extension. H
 * indices creation
 * example data insertion
 
-**queries.sql**
+**requests.sql**
 
 * `select` queries listed in the task
 
 ## Web application
+The last part of our task was to implement **web-interface for database management**.
+
+We implemented a web-application using Python **Flask** and **psycopg2** package to manage access to database.
+
+### Usage
+In order to start the application, you need to run the following commands in the terminal.
+
+    virtualenv venv
+    source venv/bin/activate
+    
+    pip install -r requirements.txt
+    
+    export FLASK_APP=modules/main.py
+    flask run
+
+
+### For development 
