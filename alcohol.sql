@@ -106,10 +106,8 @@ CREATE INDEX free_bed ON bed(bed_id) WHERE taken = False;
 -- and thus inspectors need to look for them first.
 CREATE INDEX most_vulnerable_alcoholic ON alcoholic(max_drink ASC);
 
--- 3. triggers
 
-
--- 4. data insertion
+-- 3. data insertion
 
 -- objects and subjects data
 INSERT INTO alcoholic (name, max_drink, conscious) VALUES
