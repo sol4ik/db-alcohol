@@ -87,8 +87,24 @@ CREATE TABLE group_alcoholic(
 );
 
 
--- 2. indices
+-- 2. indexes
 
+-- In our system only unconscious alcoholic can be taken to sober-up, thus, it is more convenient
+-- for the inspectors to look for alcoholics that have recently fainted.
+CREATE INDEX recent_faints ON faints(date_from);
+
+-- For better system navigation.
+CREATE INDEX recent_enclosions ON migrations(migration_date) WHERE bed_from is NULL;
+
+CREATE INDEX recent_releases ON migrations(migration_date) WHERE bed_to is NULL;
+
+-- In order to enclose alcoholic, inspector needs to put him on a free bed.
+-- Thus, we need to look for free beds first.
+CREATE INDEX free_bed ON bed(bed_id) WHERE taken = False;
+
+-- The alcoholic with small drinking limit are more likely to faint after drinking
+-- and thus inspectors need to look for them first.
+CREATE INDEX most_vulnerable_alcoholic ON alcoholic(max_drink ASC);
 
 -- 3. triggers
 
