@@ -1,10 +1,12 @@
 from flask import Flask, request, render_template
 import psycopg2
+import os
 
-app = Flask(__name__, static_url_path='')
-
+app = Flask(__name__, static_folder='./templates/static')
 
 # Connect to the db
+
+
 def connect_to_db():
     conn = psycopg2.connect(host="localhost",
                             port=5432,
@@ -14,8 +16,8 @@ def connect_to_db():
     return conn
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/request2', methods=['GET', 'POST'])
+def request2():
     conn = connect_to_db()
     cur = conn.cursor()
     if request.method == 'POST':
@@ -31,9 +33,45 @@ def index():
         conn.close()
         for i in response:
             print(i)
-        return render_template('finish.html', result=response)
+        return render_template('requst2_finish.html', result=response)
     else:
-        return render_template('index.html')
+        return render_template('request2.html')
+
+
+@app.route('/alcoholic', methods=['GET'])
+def get_all_alcoholic():
+    conn = connect_to_db()
+    cur = conn.cursor()
+    cur.execute(f"""select * from alcoholic;""")
+    response = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('alcoholic.html', result=response)
+
+
+@app.route('/inspector', methods=['GET'])
+def get_all_inspector():
+    conn = connect_to_db()
+    cur = conn.cursor()
+    cur.execute(f"""select * from inspector;""")
+    response = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('inspector.html', result=response)
+
+
+@app.route('/', methods=['GET'])
+def index():
+    # conn = connect_to_db()
+    # cur = conn.cursor()
+    # cur.execute(f"""select * from inspector;""")
+    # response = cur.fetchall()
+    # conn.commit()
+    # cur.close()
+    # conn.close()
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
