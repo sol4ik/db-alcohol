@@ -74,7 +74,7 @@ CREATE TABLE group_alcohol(
 	alcohol_id integer NOT NULL,
 	amount_drunk integer NOT NULL,
 	date_from date NOT NULL,
-	date_to date NOT NULL,
+	date_to date,
 
 	foreign key (alcohol_id) references alcohol(alcohol_id)
 );
