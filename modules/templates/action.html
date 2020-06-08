@@ -1,6 +1,69 @@
 {% extends 'base.html' %}
 {% block content %}
 <body>
+    <div class="width-60 center">
+        <div class="button white-btn small-btn center-text" style="margin-top: 50px; margin-bottom: 30px">
+            <a href="{{ url_for('home', user_id = context.user_id, user_type = context.user_type )}}"> back home</a>
+        </div>
+        <div class="title center-text">
+            {% if context.action == "invite" %}
+                invite your friend for a drink!
+            {% else %} {% if context.action == "eclose" %}
+                enclose this alcoholic in the sober-up!
+            {% else %} {% if context.action == "release" %}
+                 do you really want to release him?
+            {% else %}
+                 why even move those beds?..
+            {% endif %} {% endif %} {% endif %}
+        </div>
+        <form method="POST" role="form" class="action-form">
+            {% if context.action == "invite" %}
+                <input type="hidden" name="action" value="invite">
 
+                <label for="drink" class="label">with whom?</label> <br>
+                <div class="center-text full-width big-text">{{ context.chosen_alcoholic_name }}</div>
+                <br><br>
+                <label for="drink" class="label">what to drink?</label>
+                <select>
+                    {% for drink in context.drinks %}
+                        <option value="{{ drink[0] }}" class="center-text">{{ drink[0] }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="amount" class="label">and how much?</label>
+                <input type="number" name="amount" placeholder="1 liter" min="0" step="0.5">
+            {% else %} {% if context.action == "eclose" %}
+                <input type="hidden" name="action" value="enclose">
+
+                <label for="drink" class="label">who to enclose?</label> <br>
+                <div class="center-text full-width big-text">{{ context.chosen_alcoholic_name }}</div>
+                <br><br>
+                <label for="drink" class="label">what bed to put him?</label>
+                <select>
+                    {% for bed in context.beds %}
+                        <option value="{{ bed[0] }}" class="center-text">{{ bed[0] }}</option>
+                    {% endfor %}
+                </select>
+            {% else %} {% if context.action == "release" %}
+                <input type="hidden" name="action" value="release">
+
+                <label for="drink" class="label">who to release?</label> <br>
+                <div class="center-text full-width big-text">{{ context.chosen_alcoholic_name }}</div>
+            {% else %}
+                <input type="hidden" name="action" value="move">
+
+                <label for="drink" class="label">who?</label> <br>
+                <div class="center-text full-width big-text">{{ context.chosen_alcoholic_name }}</div>
+                <br><br>
+                <label for="drink" class="label">what bed to move him to?</label>
+                <select>
+                    {% for bed in context.beds %}
+                        <option value="{{ bed[0] }}" class="center-text">{{ bed[0] }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %} {% endif %} {% endif %}
+            <input type="submit" class="button yellow-btn" value="let's do it!">
+        </form>
+    </div>
 </body>
 {% endblock %}

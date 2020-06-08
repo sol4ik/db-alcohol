@@ -2,9 +2,13 @@
 {% block content %}
 <body>
     <div class="center width-60">
-        <div class="button yellow-btn small-btn center-text" style="margin-top: 50px; margin-bottom: -20px;">
+        <div class="button yellow-btn small-btn center-text" style="margin-top: 50px">
             <a href="{{ url_for('home', user_id = context.user[0], user_type = "alcoholic" )}}"> back home</a>
         </div>
+        <div class="button small-btn white-btn center-text">
+                <a href="{{ url_for('login_page') }}">log out</a>
+        </div>
+
         <div class="title-container-5">
             <div class="title center-text">
                 look at you!

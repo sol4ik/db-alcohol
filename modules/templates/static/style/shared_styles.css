@@ -1,5 +1,5 @@
 /*font styles*/
-html, body, form, input[type=submit] {
+html, body, form, input[type=submit], select {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -23,6 +23,10 @@ html, body, form, input[type=submit] {
 
 .full-width {
     width: 100%;
+}
+
+.big-text {
+    font-size: 22px;
 }
 
 /*button styles*/

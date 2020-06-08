@@ -10,8 +10,7 @@
   margin-top: 5%;
 }
 .error-msg {
-  padding: 10px;
-  padding-top: 25px;
+  padding: 25px 10px 0 10px;
   color: red;
   font-size: 20px;
 }
@@ -20,7 +19,7 @@
 .login-form {
   margin-top: 8%;
 }
-input[type=text], select {
+input, select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -32,6 +31,8 @@ input[type=text], select {
 }
 .label {
   padding-left: 3%;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 /*home page styles*/
@@ -146,4 +147,12 @@ input[type=text], select {
 }
 .profile-info {
   font-size: 20px;
+}
+
+/*actions form*/
+.action-form {
+  margin-top: 10%;
+}
+.action-form input[type=submit] {
+  margin-top: 8%;
 }

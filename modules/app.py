@@ -36,16 +36,20 @@ def get_alcoholic_stats():
     cur.execute(f"""select * from alcoholic;""")
     alcoholics['alcoholics'] = cur.fetchall()
     conn.commit()
-    cur.close()
-    conn.close()
 
-    # TODO: run queries to get corresponding alcoholics for each type
+
+
     alcoholics['friendly'] = alcoholics['alcoholics']
     alcoholics['quick'] = alcoholics['alcoholics']
     alcoholics['master'] = alcoholics['alcoholics']
+
+    # inspector's favourite
     alcoholics['favourite'] = alcoholics['alcoholics']
     alcoholics['disfavourite'] = alcoholics['alcoholics']
     alcoholics['amateur'] = alcoholics['alcoholics']
+
+    cur.close()
+    conn.close()
 
     return alcoholics
 
@@ -95,7 +99,7 @@ def home():
             cur.execute(f"""select conscious from alcoholic where alcoholic_id={data['user_id']};""")
             response = cur.fetchall()
             if not response[0][0]:
-                errors.append("you cannot dp anything as you've just fainted!")
+                errors.append("you cannot do anything as you've just fainted!")
             conn.commit()
 
             cur.execute(f"""select enclosed from alcoholic where alcoholic_id={ data['chosen_alcoholic_id'] };""")
@@ -114,7 +118,7 @@ def home():
         cur.close()
         conn.close()
         if len(errors) == 0:
-            return redirect(url_for('.action', query_data=json.dumps(data)))
+            return redirect(url_for('.action', context=json.dumps(data)))
 
         context['errors'] = errors
 
@@ -141,7 +145,25 @@ def home():
 
 @app.route('/action', methods=["GET", "POST"])
 def action():
-    return render_template('action.html', context=json.loads(request.args['context']))
+    context = json.loads(request.args['context'])
+
+    conn = connect_to_db()
+    cur = conn.cursor()
+
+    cur.execute(f"""select name from alcoholic where alcoholic_id ={context['chosen_alcoholic_id']};""")
+    context['chosen_alcoholic_name'] = cur.fetchall()[0][0]
+    conn.commit()
+    if context['action'] == "invite":
+        cur.execute(f"""select name from alcohol;""")
+        context['drinks'] = cur.fetchall()
+        conn.commit()
+    if context['action'] in ["enclose", "move"]:
+        cur.execute(f"""select bed_id from bed where taken = False;""")
+        context['beds'] = cur.fetchall()
+        conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('action.html', context=context)
 
 
 @app.route('/my_profile',methods=["GET", "POST"])
