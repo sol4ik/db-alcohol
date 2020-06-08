@@ -27,6 +27,10 @@ UPDATE group_alcohol
 SET amount_drunk = 0
 WHERE group_id = 3
 
+for id in faint_ids:
+	INSERT INTO faints VALUES 
+	(id, NOW()::date, null)
+
 UPDATE alcohlic
 SET coscious = false
 WHERE alcoholic_id = -- "one of alcoholic_ids"
