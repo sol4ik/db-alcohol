@@ -1,24 +1,25 @@
-@media (max-width: 576px) {  
-  .xs {color:red;font-weight:bold;}
+/*font styles*/
+html, body {
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) and (max-width:768px) {  
-  .sm {color:red;font-weight:bold;}
+.btn-yellow:hover {
+    opacity: 0.8;
+    color: white;
 }
- 
-/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) and (max-width:992px) {  
- .md {color:red;font-weight:bold;}
+
+.btn-yellow:focus {
+    background-color: #F57F17;
+    border: none;
 }
- 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) and (max-width:1200px) { 
- .lg {color:red;font-weight:bold;}
+
+.btn-yellow:active {
+    background-color: #F57F17;
+    border: none;
 }
- 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {  
-    .xl {color:red;font-weight:bold;}
+
+.btn-yellow {
+    background-color: #F9A825;
+    color: white;
 }
- 
+
