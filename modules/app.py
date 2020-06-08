@@ -45,6 +45,7 @@ def get_alcoholic_stats():
     alcoholics['master'] = alcoholics['alcoholics']
     alcoholics['favourite'] = alcoholics['alcoholics']
     alcoholics['disfavourite'] = alcoholics['alcoholics']
+    alcoholics['amateur'] = alcoholics['alcoholics']
 
     return alcoholics
 
@@ -133,6 +134,7 @@ def home():
     context['master'] = alcoholics['alcoholics']
     context['favourite'] = alcoholics['alcoholics']
     context['disfavourite'] = alcoholics['alcoholics']
+    context['amateur'] = alcoholics['amateur']
 
     return render_template('home.html', context=context)
 

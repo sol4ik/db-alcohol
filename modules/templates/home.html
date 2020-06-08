@@ -47,6 +47,9 @@
                 {% if alcoholic in context.quick and context.user_data.user_type == "alcoholic"  %}
                     <img class="card-icon" src="static/icons/quickest.svg" title="quickest legs">
                 {% endif %}
+                {% if alcoholic in context.amateur and context.user_data.user_type == "alcoholic"  %}
+                    <img class="card-icon" src="static/icons/amateur.svg" title="drinking amateur">
+                {% endif %}
             </div>
             {% set img_num = range(1, 5) | random %}
             {% if img_num == 1 %}

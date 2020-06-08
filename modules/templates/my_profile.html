@@ -42,6 +42,9 @@
                 {% if context.user in context.alcoholics.quick %}
                     <img class="profile-icon" src="static/icons/quickest.svg" title="quickest legs">
                 {% endif %}
+                {% if context.user in context.alcoholics.amateur %}
+                    <img class="profile-icon" src="static/icons/amateur.svg" title="drinking amateur">
+                {% endif %}
             </div>
         </div>
             <div class="profile-info-container">
