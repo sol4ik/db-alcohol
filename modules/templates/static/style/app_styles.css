@@ -47,7 +47,17 @@ input[type=text], select {
 }
 .card-img {
   margin: 15px;
+  margin-top: 0;
 }
+
+.card-icons {
+  padding: 4px;
+}
+.card-icon {
+  height: 25px;
+  margin-left: 5px;
+}
+
 .card-name {
   font-weight: bold;
   font-size: 22px;

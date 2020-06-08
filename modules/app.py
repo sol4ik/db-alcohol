@@ -58,6 +58,13 @@ def home():
         cur.close()
         conn.close()
 
+        # TODO: run queries to get corresponding alcoholics for each type
+        context['friendly'] = context['alcoholics']
+        context['quick'] = context['alcoholics']
+        context['master'] = context['alcoholics']
+        context['favourite'] = context['alcoholics']
+        context['disfavourite'] = context['alcoholics']
+
         return render_template('home.html', context=context)
 
 

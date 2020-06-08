@@ -15,6 +15,23 @@
         {% if (context.user_data.user_type == "alcoholic" and alcoholic[0] == context.user_data.user_id)%}
         {% else %}
         <div class="card">
+            <div class="card-icons">
+                {% if alcoholic in context.favourite %}
+                    <img class="card-icon" src="static/icons/favourite.svg" title="inspector's favourite">
+                {%  endif %}
+                {% if alcoholic in context.disfavourite %}
+                    <img class="card-icon" src="static/icons/disfavourite.svg" title="inspector's disfavourite">
+                {% endif %}
+                {% if alcoholic in context.friendly and context.user_data.user_type == "alcoholic" %}
+                    <img class="card-icon" src="static/icons/friendly.svg" title="most friendly soul">
+                {% endif %}
+                {% if  alcoholic in context.master and context.user_data.user_type == "alcoholic" %}
+                    <img class="card-icon" src="static/icons/master.svg" title="drinking master">
+                {% endif %}
+                {% if alcoholic in context.quick and context.user_data.user_type == "alcoholic"  %}
+                    <img class="card-icon" src="static/icons/quickest.svg" title="quickest legs">
+                {% endif %}
+            </div>
             {% set img_num = range(1, 5) | random %}
             {% if img_num == 1 %}
                 <img class="card-img" src="static/images/ditective.svg">
