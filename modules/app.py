@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
+import json
 
 app = Flask(__name__, static_folder='./templates/static')
 
@@ -29,23 +30,41 @@ def login_page():
         )
         response = cur.fetchall()
         conn.commit()
-        if response:
-            context = dict()
-            context['user_data'] = request.form
-
-            cur.execute(f"""select * from alcoholic;""")
-            all_alcoholics = cur.fetchall()
-            conn.commit()
-            cur.close()
-            conn.close()
-
-            context['alcoholics'] = all_alcoholics
-            return render_template('home.html', context=context)
-        else:
-            error = "no such user found!"
         cur.close()
         conn.close()
+        if response:
+            # context = dict()
+            # context['user_data'] = request.form
+            #
+            # cur.execute(f"""select * from alcoholic;""")
+            # all_alcoholics = cur.fetchall()
+            # conn.commit()
+            # cur.close()
+            # conn.close()
+            #
+            # context['alcoholics'] = all_alcoholics
+            # return render_template('home.html', context=context)
+            return redirect(url_for('.home', user_data=json.dumps(request.form)))
+        else:
+            error = "no such user found!"
     return render_template('login.html', error=error)
+
+
+@app.route('/home', methods=["GET", "POST"])
+def home():
+    if request.method == "GET":
+        context = dict()
+        context['user_data'] = json.loads(request.args['user_data'])
+
+        conn = connect_to_db()
+        cur = conn.cursor()
+        cur.execute(f"""select * from alcoholic;""")
+        context['alcoholics'] = cur.fetchall()
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        return render_template('home.html', context=context)
 
 
 if __name__ == '__main__':

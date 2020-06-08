@@ -12,6 +12,8 @@
 <body>
     <div class="cards-container">
     {% for alcoholic in context.alcoholics %}
+        {% if (context.user_data.user_type == "alcoholic" and alcoholic[0] == context.user_data.user_id)%}
+        {% else %}
         <div class="card">
             {% set img_num = range(1, 5) | random %}
             {% if img_num == 1 %}
@@ -39,16 +41,44 @@
                 <div class="button small-btn center-text">🖐</div>
                 <div class="dropdown-content">
                     {% if context.user_data.user_type == "alcoholic" %}
-                            <div class="center-text">invite to drink</div>
+                            <div class="center-text">
+                                <form method="POST" role="form" class="dropdown-form">
+                                    <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
+                                    <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
+                                    <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="submit" value="invite to drink">
+                                </form>
+                                </div>
                         {% else %}
-                            <div class="center-text">enclose in sober-up</div>
-                            <div class="center-text">release</div>
-                            <div class="center-text">move beds</div>
+                            <div class="center-text">
+                            <form method="POST" role="form" class="dropdown-form">
+                                    <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
+                                    <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
+                                    <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="submit" value="enclose in sober-up">
+                                </form>
+                            </div>
+                            <div class="center-text">
+                            <form method="POST" role="form" class="dropdown-form">
+                                    <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
+                                    <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
+                                    <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="submit" value="release">
+                                </form>
+                            </div>
+                            <div class="center-text">
+                            <form method="POST" role="form" class="dropdown-form">
+                                    <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
+                                    <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
+                                    <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="submit" value="move beds">
+                                </form>
+                            </div>
                         {% endif %}
                 </div>
             </div>
         </div>
-
+        {% endif %}
     {% endfor %}
     </div>
 </body>

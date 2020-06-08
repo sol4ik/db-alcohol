@@ -85,6 +85,14 @@ input[type=text], select {
   border-radius: 2px;
 }
 .dropdown-content div:hover {
-  font-weight: bold;
   border-bottom: 3px solid red;
+}
+.dropdown-form input[type=submit] {
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 16px;
+}
+.dropdown-form input[type=submit]:hover {
+  font-weight: bold;
 }
