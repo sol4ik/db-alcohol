@@ -1,27 +1,75 @@
-/*login form styles*/
+/*font styles*/
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 
-input[type=text] {
-  /*width: 100%;*/
+/*text styles*/
+.title {
+  margin-top: 10%;
+  font-weight: bold;
+  font-size: 30px;
+}
+.error-msg {
+  padding: 10px;
+  padding-top: 25px;
+  color: red;
+  font-size: 20px;
+}
+
+/*login form styles*/
+input[type=text], select {
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
+  font-size: 16px;
+}
+.label {
+  padding-left: 3%;
 }
 
-/* Set a style for all buttons */
-.button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+/*home page styles*/
+.cards-container {
+  margin: 5% auto;
+  width: 85%;
+}
+.card {
+  margin: 1%;
+  padding: 10px;
+  width: 20%;
+  display: inline-block;
+
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+}
+.card-img {
+  margin: 15px;
+}
+.card-name {
+  font-weight: bold;
+  font-size: 22px;
+}
+.card-info {
+  font-style: italic;
+  color: #424242;
+  font-size: 14px;
+}
+.select-action {
+  text-align: center;
   border: none;
-  cursor: pointer;
-  width: 100%;
 }
 
-/* Add a hover effect for buttons */
-.button:hover {
-  opacity: 0.8;
+/*dropdown styles*/
+.dropdown-content {
+  /*position: fixed;*/
+  display: none;
+}
+.card-dropdown:hover .dropdown-content {
+  display: block;
+
+  position: relative;
+  z-index: 1;
 }

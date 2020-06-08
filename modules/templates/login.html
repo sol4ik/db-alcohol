@@ -7,18 +7,34 @@
     <link rel="stylesheet" href="static/style/shared_styles.css">
     <link rel="stylesheet" href="static/style/app_styles.css">
 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
     <title>sober-up</title>
 </head>
 <body>
     <div class="relative-container">
+        <div class="title center-text">
+            welcome to sober-up!
+        </div>
+        {% if error %}
+            <div class="error-msg center-text">
+            {{ error }}
+            </div>
+        {% endif %}
         <div class="center">
-            <form>
-                <select name="user-type">
-                    <option value="alcoholic">alcoholic</option>
-                    <option value="inspector">inspector</option>
-                </select>
-                <input class="form-inp" name="user-id" type="text" placeholder="id">
-                <input class="small-btn button" type="submit" value="log in">
+            <form method="POST" role="form">
+                <label for="user_type">
+                    <span class="label">user type</span>
+                    <select name="user_type">
+                        <option value="alcoholic">alcoholic</option>
+                        <option value="inspector">inspector</option>
+                    </select>
+                </label>
+                <label for="user-id">
+                    <span class="label">user id</span>
+                    <input class="form-inp" name="user_id" type="text" placeholder="user id">
+                </label>
+                <input class="button" type="submit" value="log in">
             </form>
         </div>
     </div>

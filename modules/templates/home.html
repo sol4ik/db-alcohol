@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/style/shared_styles.css">
+    <link rel="stylesheet" href="static/style/app_styles.css">
+
+    <title>sober-up</title>
+</head>
+<body>
+    <div class="cards-container">
+    {% for alcoholic in context.alcoholics %}
+        <div class="card">
+            {% set img_num = range(1, 5) | random %}
+            {% if img_num == 1 %}
+                <img class="card-img" src="static/images/ditective.svg">
+            {% else %}
+                {% if img_num == 2 %}
+                <img class="card-img" src="static/images/builder.svg">
+            {% else %}
+                {% if img_num == 3 %}
+                <img class="card-img" src="static/images/nurse.svg">
+            {% else %}
+                    {% if img_num == 4 %}
+                <img class="card-img" src="static/images/navy-officer.svg">
+            {% endif %} {% endif %} {% endif %} {% endif %}
+            <div class="card-name center-text"> {{ alcoholic[1] }}</div>
+            <div class="card-info center-text">
+                maximum to drink: {{ alcoholic[2] }}l<br>
+                {% if alcoholic[2] %}
+                    conscious
+                {% else %}
+                    fainted
+                {% endif %}
+            </div>
+            <div class="card-dropdown">
+                <div class="button small-btn center-text">🖐</div>
+                <div class="dropdown-content">
+                    {% if context.user_data.user_type == "alcoholic" %}
+                            <div class="center-text">invite to drink</div>
+                        {% else %}
+                            <div class="center-text">enclose in sober-up</div>
+                            <div class="center-text">release</div>
+                            <div class="center-text">move beds</div>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+</body>
+</html>
