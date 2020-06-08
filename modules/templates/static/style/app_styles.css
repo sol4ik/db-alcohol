@@ -63,13 +63,28 @@ input[type=text], select {
 }
 
 /*dropdown styles*/
+.card-dropdown {
+  /*z-index: -1;*/
+  position: relative;
+}
 .dropdown-content {
-  /*position: fixed;*/
+  width: 100%;
+  margin-top: -10px;
+  position: absolute;
   display: none;
+  z-index: 2;
 }
 .card-dropdown:hover .dropdown-content {
   display: block;
-
-  position: relative;
-  z-index: 1;
+}
+.dropdown-content div {
+  text-align: center;
+  padding: 5px;
+  background-color: #FBC02D;
+  border-bottom: 1px solid #F57F17;
+  border-radius: 2px;
+}
+.dropdown-content div:hover {
+  font-weight: bold;
+  border-bottom: 3px solid red;
 }
