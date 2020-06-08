@@ -1,27 +1,119 @@
-/*login form styles*/
+/*text styles*/
+.title {
+  font-weight: bold;
+  font-size: 30px;
+}
+.title-container-10 {
+  margin-top: 10%;
+}
+.title-container-5 {
+  margin-top: 5%;
+}
+.error-msg {
+  padding: 10px;
+  padding-top: 25px;
+  color: red;
+  font-size: 20px;
+}
 
-input[type=text] {
-  /*width: 100%;*/
+/*login form styles*/
+input[type=text], select {
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
+  font-size: 16px;
+}
+.label {
+  padding-left: 3%;
 }
 
-/* Set a style for all buttons */
-.button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+/*home page styles*/
+.cards-container {
+  margin: 5% auto;
+  width: 85%;
+}
+.card {
+  margin: 1%;
+  padding: 10px;
+  width: 20%;
+  display: inline-block;
+
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+}
+.card-img {
+  margin: 15px;
+  margin-top: 0;
+}
+
+.card-icons {
+  padding: 4px;
+}
+.card-icon {
+  height: 25px;
+  margin-left: 5px;
+}
+
+.card-name {
+  font-weight: bold;
+  font-size: 22px;
+}
+.card-info {
+  font-style: italic;
+  color: #424242;
+  font-size: 14px;
+}
+.select-action {
+  text-align: center;
   border: none;
-  cursor: pointer;
-  width: 100%;
 }
 
-/* Add a hover effect for buttons */
-.button:hover {
+/*dropdown styles*/
+.card-dropdown {
+  /*z-index: -1;*/
+  position: relative;
+}
+.dropdown-content {
+  width: 100%;
+  margin-top: -10px;
+  position: absolute;
+  display: none;
+  z-index: 2;
+}
+.card-dropdown:hover .dropdown-content {
+  display: block;
+}
+.card-dropdown:hover div.button {
+  width: 96%;
+}
+.dropdown-content div {
+  text-align: center;
+  padding: 5px;
+  background-color: #F9A825;
   opacity: 0.8;
+  border-bottom: 1px solid #F57F17;
+  border-radius: 2px;
+}
+.dropdown-content div:hover {
+  border-bottom: 3px solid red;
+  opacity: 0.95;
+}
+.dropdown-form input[type=submit] {
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 16px;
+}
+.dropdown-form input[type=submit]:hover {
+  font-weight: bold;
+}
+
+/*nav buttons styles*/
+.btns-container {
+  margin-top: 20px;
+  display: block;
 }

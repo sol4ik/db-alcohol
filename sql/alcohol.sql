@@ -9,7 +9,8 @@ CREATE TABLE alcoholic(
 	alcoholic_id serial PRIMARY KEY,
 	name varchar(100) NOT NULL,
 	max_drink decimal NOT NULL,
-	conscious bool DEFAULT True
+	conscious bool DEFAULT True,
+	enclosed bool DEFAULT False
 );
 CREATE TABLE inspector(
 	inspector_id serial PRIMARY KEY,
@@ -23,7 +24,8 @@ CREATE TABLE bed(
 );
 CREATE TABLE alcohol(
 	alcohol_id serial PRIMARY KEY,
-	name varchar(100) NOT NULL
+	name varchar(100) NOT NULL,
+	amount integer NOT NULL
 );
 --actions involving both alcoholic and inspector
 CREATE TABLE migrations(
@@ -187,17 +189,17 @@ INSERT INTO bed (alcoholic_id, taken) VALUES
 (21, True),
 (8, True);
 
-INSERT INTO alcohol (name) VALUES
-('Vodka'),
-('Beer'),
-('Wine'),
-('Ale'),
-('Cognac'),
-('Tequila'),
-('Champagne'),
-('Brandy'),
-('Rum'),
-('Gin');
+INSERT INTO alcohol (name, amount) VALUES
+('Vodka', 6),
+('Beer',10),
+('Wine',10),
+('Ale', 8),
+('Cognac',9),
+('Tequila',6),
+('Champagne',8),
+('Brandy',10),
+('Rum',5),
+('Gin',5);
 
 --actions and events data
 INSERT INTO migrations (bed_from, bed_to, alcoholic_id, inspector_id, migration_date) VALUES
