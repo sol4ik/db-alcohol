@@ -4,10 +4,12 @@ import os
 
 app = Flask(__name__, static_folder='./templates/static')
 
-# Connect to the db
-
 
 def connect_to_db():
+    """
+    Connect to Postgres database alcoholic.
+    :return: psycopg2 connection object
+    """
     conn = psycopg2.connect(host="localhost",
                             port=5432,
                             dbname="alcohol",
