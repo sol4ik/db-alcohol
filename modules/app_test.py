@@ -24,20 +24,21 @@ def request2():
     cur = conn.cursor()
     if request.method == 'POST':
         data = dict(request.form)
-        cur.execute(f"""select bed_id, date_from, date_to
-                        from alcoholic_bed
-                        where ((date_from < '{data['date_from']}' and date_to > '{data['date_from']}')
-                        or (date_from > '{data['date_from']}' and date_from < '{data['date_to']}'))
-                        and alcoholic_id = {data['alcoholic_id']};""")
-        response = cur.fetchall()
-        conn.commit()
-        cur.close()
-        conn.close()
-        for i in response:
-            print(i)
-        return render_template('requst2_finish.html', result=response)
-    else:
-        return render_template('request2.html')
+        if all(v for v in data.values()):
+            cur.execute(f"""select bed_id, date_from, date_to
+                            from alcoholic_bed
+                            inner join alcoholic a on alcoholic_bed.alcoholic_id = a.alcoholic_id
+                            where ((date_from < '{data['date_from']}' and date_to > '{data['date_from']}')
+                            or (date_from > '{data['date_from']}' and date_from < '{data['date_to']}'))
+                            and name = '{data['name']}';""")
+            response = cur.fetchall()
+            conn.commit()
+            cur.close()
+            conn.close()
+            for i in response:
+                print(i)
+            return render_template('request2_finish.html', result=response)
+    return render_template('request2.html')
 
 
 @app.route('/alcoholic', methods=['GET'])
