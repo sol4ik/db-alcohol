@@ -64,7 +64,7 @@ CREATE TABLE faints(
     faint_id serial PRIMARY KEY,
 	alcoholic_id integer NOT NULL,
 	date_from date NOT NULL,
-	date_to date NOT NULL,
+	date_to date,
 
 	foreign key (alcoholic_id) references alcoholic(alcoholic_id)
 );
