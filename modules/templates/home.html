@@ -1,16 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="static/style/shared_styles.css">
-    <link rel="stylesheet" href="static/style/app_styles.css">
-
-    <title>sober-up</title>
-</head>
+{% extends 'base.html' %}
+{% block content %}
 <body>
+    <div class="title-container-5">
+        <div class="title center-text">
+            how's sober-up doing?
+        </div>
+    </div>
+    <div class="btns-container">
+        {% if context.user_data.user_type == "alcoholic" %}
+            <div class="button small-btn yellow-btn center-text">
+                <a href="{{ url_for('my_profile', user_id=context.user_data.user_id) }}">my profile</a>
+            </div>
+        {% endif %}
+        <div class="button small-btn yellow-btn center-text">
+{#                <a href="{{ url_for('stats') }}">sober-up statistics</a>#}
+            <a href="#">sober-up statistics</a>
+        </div>
+    </div>
     <div class="cards-container">
+    <div class="errors-container">
+        {% for error in context.errors %}
+            <div class="error-msg center-text">{{ error }}</div>
+        {% endfor %}
+    </div>
+
     {% for alcoholic in context.alcoholics %}
         {% if (context.user_data.user_type == "alcoholic" and alcoholic[0] == context.user_data.user_id)%}
         {% else %}
@@ -48,14 +61,21 @@
             <div class="card-name center-text"> {{ alcoholic[1] }}</div>
             <div class="card-info center-text">
                 maximum to drink: {{ alcoholic[2] }}l<br>
-                {% if alcoholic[2] %}
-                    conscious
+                {% if alcoholic[3] %}
+                    conscious <br>
                 {% else %}
-                    fainted
+                    fainted <br>
+                {% endif %}
+                {% if alcoholic[4] %}
+                    enclosed in sober-up
+                {% else %}
+                    free
                 {% endif %}
             </div>
             <div class="card-dropdown">
-                <div class="button small-btn center-text">🖐</div>
+                <div class="button white-btn small-btn center-text">
+                    <img class="card-icon" src="static/icons/hi.svg" alt="do action">
+                </div>
                 <div class="dropdown-content">
                     {% if context.user_data.user_type == "alcoholic" %}
                             <div class="center-text">
@@ -63,6 +83,8 @@
                                     <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
                                     <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
                                     <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="hidden" name="action" value="invite">
+
                                     <input type="submit" value="invite to drink">
                                 </form>
                                 </div>
@@ -72,6 +94,8 @@
                                     <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
                                     <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
                                     <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="hidden" name="action" value="enclose">
+
                                     <input type="submit" value="enclose in sober-up">
                                 </form>
                             </div>
@@ -80,6 +104,8 @@
                                     <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
                                     <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
                                     <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="hidden" name="action" value="release">
+
                                     <input type="submit" value="release">
                                 </form>
                             </div>
@@ -88,6 +114,8 @@
                                     <input type="hidden" name="user_type" value="{{ context.user_data.user_type }}">
                                     <input type="hidden" name="user_id" value="{{ context.user_data.user_id  }}">
                                     <input type="hidden" name="chosen_alcoholic_id" value="{{ alcoholic[0] }}">
+                                    <input type="hidden" name="action" value="move">
+
                                     <input type="submit" value="move beds">
                                 </form>
                             </div>
@@ -99,4 +127,4 @@
     {% endfor %}
     </div>
 </body>
-</html>
+{% endblock %}

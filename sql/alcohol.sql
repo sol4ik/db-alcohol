@@ -9,7 +9,8 @@ CREATE TABLE alcoholic(
 	alcoholic_id serial PRIMARY KEY,
 	name varchar(100) NOT NULL,
 	max_drink decimal NOT NULL,
-	conscious bool DEFAULT True
+	conscious bool DEFAULT True,
+	enclosed bool DEFAULT False
 );
 CREATE TABLE inspector(
 	inspector_id serial PRIMARY KEY,

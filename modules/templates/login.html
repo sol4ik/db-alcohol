@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="static/style/shared_styles.css">
-    <link rel="stylesheet" href="static/style/app_styles.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-
-    <title>sober-up</title>
-</head>
+{% extends 'base.html' %}
+{% block content %}
 <body>
     <div class="relative-container">
-        <div class="title center-text">
-            welcome to sober-up!
+        <div class="title-container-10">
+            <div class="title center-text">
+                welcome to sober-up!
+            </div>
         </div>
         {% if error %}
             <div class="error-msg center-text">
@@ -34,9 +25,9 @@
                     <span class="label">user id</span>
                     <input class="form-inp" name="user_id" type="text" placeholder="user id">
                 </label>
-                <input class="button" type="submit" value="log in">
+                <input class="button yellow-btn" type="submit" value="log in">
             </form>
         </div>
     </div>
 </body>
-</html>
+{% endblock %}

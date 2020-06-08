@@ -46,26 +46,89 @@ def login_page():
 
 @app.route('/home', methods=["GET", "POST"])
 def home():
-    if request.method == "GET":
-        context = dict()
-        context['user_data'] = json.loads(request.args['user_data'])
+    context = dict()
+    context['errors'] = list()
+
+    if request.method == "POST":
+        data = request.form
+        errors = list()
 
         conn = connect_to_db()
         cur = conn.cursor()
-        cur.execute(f"""select * from alcoholic;""")
-        context['alcoholics'] = cur.fetchall()
-        conn.commit()
+
+        if data['user_type'] == "alcoholic":
+            cur.execute(f"""select enclosed from alcoholic where alcoholic_id={data['user_id']};""")
+            response = cur.fetchall()
+            if response[0][0]:
+                errors.append("you cannot drink with other alcoholics because you are enclosed in sober-up!")
+            conn.commit()
+
+            cur.execute(f"""select conscious from alcoholic where alcoholic_id={data['user_id']};""")
+            response = cur.fetchall()
+            if not response[0][0]:
+                errors.append("you cannot dp anything as you've just fainted!")
+            conn.commit()
+
+            cur.execute(f"""select enclosed from alcoholic where alcoholic_id={ data['chosen_alcoholic_id'] };""")
+            response = cur.fetchall()
+            if response[0][0]:
+                errors.append("you cannot drink with alcoholic who is enclosed in sober-up!")
+            conn.commit()
+
+            cur.execute(f"""select conscious from alcoholic where alcoholic_id={ data['chosen_alcoholic_id']};""")
+            response = cur.fetchall()
+            if not response[0][0]:
+                errors.append("you cannot drink with alcoholic who just fainted!")
+            conn.commit()
+        else:
+            pass
         cur.close()
         conn.close()
+        if len(errors) == 0:
+            return redirect(url_for('.action', query_data=json.dumps(data)))
 
-        # TODO: run queries to get corresponding alcoholics for each type
-        context['friendly'] = context['alcoholics']
-        context['quick'] = context['alcoholics']
-        context['master'] = context['alcoholics']
-        context['favourite'] = context['alcoholics']
-        context['disfavourite'] = context['alcoholics']
+        context['errors'] = errors
 
-        return render_template('home.html', context=context)
+    context['user_data'] = json.loads(request.args['user_data'])
+
+    conn = connect_to_db()
+    cur = conn.cursor()
+    cur.execute(f"""select * from alcoholic;""")
+    context['alcoholics'] = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    # TODO: run queries to get corresponding alcoholics for each type
+    context['friendly'] = context['alcoholics']
+    context['quick'] = context['alcoholics']
+    context['master'] = context['alcoholics']
+    context['favourite'] = context['alcoholics']
+    context['disfavourite'] = context['alcoholics']
+
+    return render_template('home.html', context=context)
+
+
+@app.route('/action', methods=["GET", "POST"])
+def action():
+    return render_template('action.html', context=json.loads(request.args['context']))
+
+
+@app.route('/my_profile',methods=["GET", "POST"])
+def my_profile():
+    user_id = request.args['user_id']
+
+    conn = connect_to_db()
+    cur = conn.cursor()
+    cur.execute(f"""select * from alcoholic where alcoholic_id = {user_id};""")
+    response = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    context = dict()
+    context['user_data'] = response[0]
+    return render_template('my_profile.html', context=context)
 
 
 if __name__ == '__main__':
