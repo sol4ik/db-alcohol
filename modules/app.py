@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import json
 
+from help_functions import is_int
+
 app = Flask(__name__, static_folder='./templates/static')
 
 
@@ -25,28 +27,20 @@ def login_page():
         data = request.form
         conn = connect_to_db()
         cur = conn.cursor()
-        cur.execute(
-            f"""select * from { request.form['user_type'] } where { request.form['user_type'] }_id = {request.form['user_id'] };"""
-        )
-        response = cur.fetchall()
-        conn.commit()
-        cur.close()
-        conn.close()
-        if response:
-            # context = dict()
-            # context['user_data'] = request.form
-            #
-            # cur.execute(f"""select * from alcoholic;""")
-            # all_alcoholics = cur.fetchall()
-            # conn.commit()
-            # cur.close()
-            # conn.close()
-            #
-            # context['alcoholics'] = all_alcoholics
-            # return render_template('home.html', context=context)
-            return redirect(url_for('.home', user_data=json.dumps(request.form)))
+        if is_int(request.form['user_id']):
+            cur.execute(
+                f"""select * from { request.form['user_type'] } where { request.form['user_type'] }_id = {request.form['user_id'] };"""
+            )
+            response = cur.fetchall()
+            conn.commit()
+            cur.close()
+            conn.close()
+            if response:
+                return redirect(url_for('.home', user_data=json.dumps(request.form)))
+            else:
+                error = "no such user found!"
         else:
-            error = "no such user found!"
+            error = "invalid id type! please, enter integer value"
     return render_template('login.html', error=error)
 
 
