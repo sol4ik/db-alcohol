@@ -1,5 +1,5 @@
 /*font styles*/
-html, body {
+html, body, form, input[type=submit] {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -7,14 +7,22 @@ html, body {
     position: relative;
 }
 .center {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    /*position: fixed;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+}
+.width-60 {
+    width: 60%;
 }
 
 .center-text {
     text-align: center;
+}
+
+.full-width {
+    width: 100%;
 }
 
 /*button styles*/
@@ -45,7 +53,7 @@ html, body {
     background-color: white;
     color: #F9A825;
 }
-.white-button:hover {
+.white-btn:hover {
   color: #F57F17;
 }
 .button:focus {
@@ -62,4 +70,9 @@ html, body {
 .button a {
     text-decoration: none;
     color: white;
+}
+.white-btn a {
+    color: #F9A825;
+    font-weight: bold;
+    font-size: 20px;
 }

@@ -17,6 +17,9 @@
 }
 
 /*login form styles*/
+.login-form {
+  margin-top: 8%;
+}
 input[type=text], select {
   width: 100%;
   padding: 12px 20px;
@@ -116,4 +119,31 @@ input[type=text], select {
 .btns-container {
   margin-top: 20px;
   display: block;
+}
+
+/*profile styles*/
+.profile-img {
+  width: 95%;
+}
+.profile-icons {
+  margin: 20px;
+}
+.profile-icon {
+  width: 40px;
+  margin-left: 15px;
+}
+.profile-left {
+  float: left;
+  margin: 10px 5%;
+}
+.profile-info-container {
+  margin: 10% 20px;
+}
+.profile-name {
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.profile-info {
+  font-size: 20px;
 }

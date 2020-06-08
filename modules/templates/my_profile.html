@@ -1,6 +1,81 @@
 {% extends 'base.html' %}
 {% block content %}
 <body>
+    <div class="center width-60">
+        <div class="button yellow-btn small-btn center-text" style="margin-top: 50px; margin-bottom: -20px;">
+            <a href="{{ url_for('home', user_id = context.user[0], user_type = "alcoholic" )}}"> back home</a>
+        </div>
+        <div class="title-container-5">
+            <div class="title center-text">
+                look at you!
+            </div>
+        </div>
 
+        <div class="profile-left">
+            {% set img_num = range(1, 5) | random %}
+            {% if img_num == 1 %}
+                <img class="profile-img" src="static/images/ditective.svg">
+            {% else %}
+                {% if img_num == 2 %}
+                <img class="profile-img" src="static/images/builder.svg">
+            {% else %}
+                {% if img_num == 3 %}
+                <img class="profile-img" src="static/images/nurse.svg">
+            {% else %}
+                    {% if img_num == 4 %}
+                <img class="profile-img" src="static/images/navy-officer.svg">
+            {% endif %} {% endif %} {% endif %} {% endif %}
+
+            <div class="profile-icons">
+                {% if context.user in context.alcoholics.favourite %}
+                    <img class="profile-icon" src="static/icons/favourite.svg" title="inspector's favourite">
+                {%  endif %}
+                {% if context.user in context.alcoholics.disfavourite %}
+                    <img class="profile-icon" src="static/icons/disfavourite.svg" title="inspector's disfavourite">
+                {% endif %}
+                {% if context.user in context.alcoholics.friendly %}
+                    <img class="profile-icon" src="static/icons/friendly.svg" title="most friendly soul">
+                {% endif %}
+                {% if context.user in context.alcoholics.master %}
+                    <img class="profile-icon" src="static/icons/master.svg" title="drinking master">
+                {% endif %}
+                {% if context.user in context.alcoholics.quick %}
+                    <img class="profile-icon" src="static/icons/quickest.svg" title="quickest legs">
+                {% endif %}
+            </div>
+        </div>
+            <div class="profile-info-container">
+                <div class="profile-name"> {{ context.user[1] }}</div>
+                <div class="profile-info">
+                    maximum to drink: {{ context.user[2] }}l<br>
+                    {% if context.user[3] %}
+                        conscious <br>
+                    {% else %}
+                        fainted <br>
+                    {% endif %}
+                    {% if context.user[4] %}
+                        enclosed in sober-up
+                    {% else %}
+                        free
+                    {% endif %}
+                </div>
+            </div>
+        <div class="btns-container full-width">
+        {% for error in context.errors %}
+            <div class="error-msg center-text">{{ error }}</div>
+        {% endfor %}
+        </div>
+        <form method="POST" role="form">
+            <input type="hidden" name="action" value="escape">
+            <input type="hidden" name="user_id" value="{{ context.user[0] }}">
+            <input type="submit" class="button yellow-btn" value="escape">
+        </form>
+
+        <form method="POST" role="form">
+            <input type="hidden" name="action" value="consious">
+            <input type="hidden" name="user_id" value="{{ context.user[0] }}">
+            <input type="submit" class="button yellow-btn" value="gain consciousness">
+        </form>
+    </div>
 </body>
 {% endblock %}
