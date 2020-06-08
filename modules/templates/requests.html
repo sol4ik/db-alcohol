@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="static/style/style.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+
+<div class="jumbotron mb-4">
+    <h4 class="text-center">Для алкоголiка A знайти усiх iнспекторiв, якi забирали його у витверезник принаймнi N разiв
+        за вказаний перiод (з дати F по дату T);</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-3  col-lg-2 text-center">
+                <label for="date_from">Початкова дата</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-2 col-lg-2 text-center">
+                <label for="date_to">Кінцева дата</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 text-center">
+                <label for="name">Повне ім'я алкоголіка</label>
+
+                <input id="name" type="text" class="form-control" name="name" placeholder="Jolie Singleton">
+            </div>
+            <div class="form-group col-md-3 col-lg-2 text-center">
+                <label for="qty">Кількість разів</label>
+
+                <input id="qty" type="number" class="form-control" name="qty">
+            </div>
+            <div class="col-md-1 col-lg-3 align-self-end">
+                <button type="submit" class="btn btn-primary form-control "
+                        style="margin-bottom: 16px" name="btn" value="request1">Пошук
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="jumbotron mb-4">
+    <h4 class="text-center">Для алкоголiка A знайти усi лiжка витверезника, де вiн побував за вказаний перiод (з дати F
+        по дату T);</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-3  text-center">
+                <label for="date_from">Початкова дата</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-3  text-center">
+                <label for="date_to">Кінцева дата</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 text-center">
+                <label for="name">Повне ім'я алкоголіка</label>
+
+                <input id="name" type="text" class="form-control" name="name" placeholder="Jolie Singleton">
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary form-control " style="margin-bottom: 16px" name="btn"
+                        value="request2">Пошук
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="jumbotron mb-4">
+    <h4 class="text-center">Для алкоголiка A знайти усi лiжка у витверезнику, з яких вiн тiкав за вказаний перiод
+        (з дати F по дату T)</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-3  text-center">
+                <label for="date_from">Початкова дата</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-3  text-center">
+                <label for="date_to">Кінцева дата</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 text-center">
+                <label for="name">Повне ім'я алкоголіка</label>
+
+                <input id="name" type="text" class="form-control" name="name" placeholder="Jolie Singleton">
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary form-control " style="margin-bottom: 16px" name="btn"
+                        value="request4">Пошук
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="jumbotron mb-4">
+    <h4 class="text-center">Знайти усiх iнспекторiв, якi забирали щонайменше N рiзних алкоголiкiв за вказаний перiод
+        (з дати F по дату T)</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-3  text-center">
+                <label for="date_from">Початкова дата</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-3  text-center">
+                <label for="date_to">Кінцева дата</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 text-center">
+                <label for="qty">Кількість алкоголіків</label>
+
+                <input id="qty" type="number" class="form-control" name="qty">
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary form-control " style="margin-bottom: 16px" name="btn"
+                        value="request6">Пошук
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="jumbotron mb-4">
+    <h4 class="text-center">Знайти усi спiльнi подiї для алкоголiка A та iнспектора I за вказаний перiод (з дати F по
+        дату T)</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group  col-md-3  col-lg-2  text-center">
+                <label for="date_from">Початкова дата</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-2  col-lg-2  text-center">
+                <label for="date_to">Кінцева дата</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 col-lg-3 col-xl-3 text-center">
+                <label for="name">Повне ім'я алкоголіка</label>
+
+                <input id="name" type="text" class="form-control" name="name" placeholder="Jolie Singleton">
+            </div>
+            <div class="form-group col-md-3 col-lg-3 col-xl-2 text-center">
+                <label for="i_name">Повне ім'я інспектора</label>
+
+                <input id="i_name" type="text" class="form-control" name="i_name" placeholder="Lane Mosley">
+            </div>
+            <div class="col-md-1 col-lg-2  col-xl-3  align-self-end">
+                <button type="submit" class="btn btn-primary form-control " style="margin-bottom: 16px" name="btn"
+                        value="request8">Пошук
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="jumbotron mb-4">
+    <h4 class="text-center">знайти сумарну кiлькiсть втеч з витверезника по мiсяцях</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="col-lg-12 align-self-end">
+                <button type="submit" class="btn btn-primary form-control " style="margin-bottom: 16px" name="btn"
+                        value="request10">Пошук
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="jumbotron mb-4">
+    <h4 class="text-center">Вивести алкогольнi напої у порядку спадання сумарної кiлькостi алкоголiкiв, що його розпивала разом з алкоголiком A за вказаний перiод (з дати F по дату T)</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-3  text-center">
+                <label for="date_from">Початкова дата</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-3  text-center">
+                <label for="date_to">Кінцева дата</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 text-center">
+                <label for="name">Повне ім'я алкоголіка</label>
+                <input id="name" type="text" class="form-control" name="name" placeholder="Jolie Singleton">
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary form-control " style="margin-bottom: 16px" name="btn"
+                        value="request12">Пошук
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+</html>

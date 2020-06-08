@@ -43,14 +43,18 @@ order by "Months";
 /*     12) Вивести алкогольнi напої у порядку спадання сумарної кiлькостi алкоголiкiв, що його розпивала разом з алкоголiком A за вказаний перiод (з дати F по дату T); */
 /* Працює не докінця правильно*/
 
-select * from group_alcoholic;
-select * from group_alcohol;
-select name, count_alcoholics as "participants"
+select *
+from group_alcoholic;
+select *
+from group_alcohol;
+select alcohol.name, count_alcoholics
 from alcohol
          inner join group_alcohol ga on alcohol.alcohol_id = ga.alcohol_id
-         inner join group_alcoholic g on ga.group_id = g.group_id
-where alcoholic_id = 2
-group by alcohol.name, count_alcoholics;
+         inner join (select * from group_alcoholic inner join alcoholic a on group_alcoholic.alcoholic_id = a.alcoholic_id where name =) g on ga.group_id = g.group_id
+
+--          inner join (select * from group_alcoholic where a.name = 10) g on ga.group_id = g.group_id
+group by alcohol.name, count_alcoholics
+ order by count_alcoholics desc;
 -- для алкоголiка A знайти усiх iнспекторiв, якi забирали його у витверезник принаймнi N
 -- разiв за вказаний перiод (з дати F по дату T);
 
