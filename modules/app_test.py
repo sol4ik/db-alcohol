@@ -158,7 +158,7 @@ def get_all_alcoholic():
     response = cur.fetchall()
     conn.commit()
     cur.close()
-    return render_template('alcoholic.html', result=response)
+    return render_template('response_table.html', result=response)
 
 
 @app.route('/inspector', methods=['GET'])
