@@ -157,15 +157,13 @@ def home():
             'user_type': request.args['user_type']
         }
 
-    try:
-        context['msgs'] = json.loads(request.args['msgs'])
-    except KeyError:
-        context['msgs'] = list()
-
-    try:
-        context['errors'].extend(json.loads(request.args['errors']))
-    except KeyError:
-        pass
+    if request.method == "GET":
+        try:
+            action_context = json.loads(request.args['messages'])
+            context['msgs'] = action_context['msgs']
+            context['errors'].extend(action_context['errs'])
+        except KeyError:
+            context['msgs'] = list()
 
     alcoholics = get_alcoholic_stats()
 
@@ -176,7 +174,6 @@ def home():
     context['favourite'] = alcoholics['alcoholics']
     context['disfavourite'] = alcoholics['alcoholics']
     context['amateur'] = alcoholics['amateur']
-    print('got alcoholics')
 
     return render_template('home.html', context=context)
 
@@ -258,7 +255,7 @@ def action():
                                 ({ cur_bed }, NULL, {action_data['chosen_alcoholic_id']}, {action_data['user_id']}, current_date);""")
 
                 cur.execute(f"""update alcoholic_bed set date_to = current_date where
-                                alcoholic_id = { action_data['chosen_acoholic_id']} and date_to is NULL );""")
+                                alcoholic_id = { action_data['chosen_alcoholic_id']} and date_to is NULL;""")
 
                 msgs.append("you successfully released an alcoholic from the sober-up!")
         else:
@@ -276,9 +273,9 @@ def action():
                                 ({ cur_bed }, NULL, {action_data['chosen_alcoholic_id']}, {action_data['user_id']}, current_date);""")
 
                 cur.execute(f"""update alcoholic_bed set date_to = current_date where
-                                            alcoholic_id = {action_data['chosen_acoholic_id']} and date_to is NULL );""")
+                                            alcoholic_id = {action_data['chosen_alcoholic_id']} and date_to is NULL;""")
                 cur.execute(f"""insert into alcoholic_bed(bed_id, alcoholic_id, date_from, date_to) values
-                                            ({action_data['bed']}, {action_data['chosen_alcholic_id']}, current_date, NULL);""")
+                                            ({action_data['bed']}, {action_data['chosen_alcoholic_id']}, current_date, NULL);""")
 
                 msgs.append("good job! it was a successful (still unneeded) beds migration! :)")
 
@@ -290,9 +287,12 @@ def action():
             'user_type': action_data['user_type'],
             'user_id': action_data['user_id']
         }
+        messages = {
+            'msgs': msgs,
+            'errs': errors
+        }
 
-        return redirect(url_for('.home', user_data=json.dumps(user_data),
-                                msgs=json.dumps(msgs)), errors=json.dumps(errors))
+        return redirect(url_for('.home', user_data=json.dumps(user_data), messages=json.dumps(messages)))
 
     cur.execute(f"""select name from alcoholic where alcoholic_id ={context['chosen_alcoholic_id']};""")
     context['chosen_alcoholic_name'] = cur.fetchall()[0][0]
