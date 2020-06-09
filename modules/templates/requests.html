@@ -4,8 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {#    <link rel="stylesheet" href="static/style/shared_styles.css">#}
-    {#    <link rel="stylesheet" href="static/style/app_styles.css">#}
+        <link rel="stylesheet" href="static/style/shared_styles.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -15,6 +14,10 @@
 </head>
 <body>
 {#1 request#}
+<div class="button yellow-btn">
+    <a href="{{ url_for('home') }}">back home</a>
+</div>
+
 <div class="jumbotron mb-4">
     <h4 class="text-justify">All inspectors who took alcoholic to the sobering-up station at least N
         times during the specified period (from date F to date T)</h4>
