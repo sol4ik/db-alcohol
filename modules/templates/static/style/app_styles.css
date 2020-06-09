@@ -9,10 +9,15 @@
 .title-container-5 {
   margin-top: 5%;
 }
-.error-msg {
+.msg {
   padding: 25px 10px 0 10px;
-  color: red;
   font-size: 20px;
+}
+.error-msg {
+  color: red;
+}
+.success-msg {
+  color: #F9A825;
 }
 
 /*login form styles*/
@@ -107,6 +112,7 @@ input, select {
   opacity: 0.95;
 }
 .dropdown-form input[type=submit] {
+  padding: 0;
   background: none;
   outline: none;
   border: none;

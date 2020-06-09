@@ -22,8 +22,11 @@
     </div>
     <div class="cards-container">
     <div class="errors-container">
+        {% for msg in context.msgs %}
+            <div class="msg success-msg center-text">{{ msg }}</div>
+        {% endfor %}
         {% for error in context.errors %}
-            <div class="error-msg center-text">{{ error }}</div>
+            <div class="msg error-msg center-text">{{ error }}</div>
         {% endfor %}
     </div>
 
@@ -51,7 +54,7 @@
                     <img class="card-icon" src="static/icons/amateur.svg" title="drinking amateur">
                 {% endif %}
             </div>
-            {% set img_num = range(1, 5) | random %}
+            {% set img_num = alcoholic[0] % 4 + 1%}
             {% if img_num == 1 %}
                 <img class="card-img" src="static/images/ditective.svg">
             {% else %}

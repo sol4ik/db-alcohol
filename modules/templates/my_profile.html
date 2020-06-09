@@ -16,7 +16,7 @@
         </div>
 
         <div class="profile-left">
-            {% set img_num = range(1, 5) | random %}
+            {% set img_num = context.user[0] % 4  + 1%}
             {% if img_num == 1 %}
                 <img class="profile-img" src="static/images/ditective.svg">
             {% else %}
@@ -26,7 +26,7 @@
                 {% if img_num == 3 %}
                 <img class="profile-img" src="static/images/nurse.svg">
             {% else %}
-                    {% if img_num == 4 %}
+                 {% if img_num == 4 %}
                 <img class="profile-img" src="static/images/navy-officer.svg">
             {% endif %} {% endif %} {% endif %} {% endif %}
 
@@ -68,9 +68,12 @@
                 </div>
             </div>
         <div class="btns-container full-width">
-        {% for error in context.errors %}
-            <div class="error-msg center-text">{{ error }}</div>
-        {% endfor %}
+            {% for error in context.errors %}
+                <div class="msg error-msg center-text">{{ error }}</div>
+            {% endfor %}
+            {% for msg in context.msgs %}
+                <div class="msg success-msg center-text">{{ msg }}</div>
+            {% endfor %}
         </div>
         <form method="POST" role="form">
             <input type="hidden" name="action" value="escape">
