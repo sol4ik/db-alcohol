@@ -63,6 +63,10 @@ In order to start the application, you need to clone this repository and then ru
     
     pip install -r requirements.txt
     
+    cd modules
+    python setup_db.py
+    cd ../
+    
     export FLASK_APP=modules/app.py
     flask run
 

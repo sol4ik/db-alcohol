@@ -1,6 +1,6 @@
 -- 0. database creation
-DROP DATABASE IF EXISTS sober_up;
-CREATE DATABASE sober_up;
+-- DROP DATABASE IF EXISTS alcohol;
+-- CREATE DATABASE alcohol;
 
 -- 1. tables creation
 
@@ -45,7 +45,7 @@ CREATE TABLE alcoholic_bed(
     bed_id integer NOT NULL,
     alcoholic_id integer NOT NULL,
     date_from timestamp NOT NULL,
-    date_to timestamp NOT NULL,
+    date_to timestamp,
 
     foreign key (bed_id) references bed(bed_id),
     foreign key (alcoholic_id)references alcoholic(alcoholic_id)
