@@ -1,8 +1,9 @@
 -- 0. database creation
-DROP DATABASE IF EXISTS sober_up;
-CREATE DATABASE sober_up;
+-- DROP DATABASE IF EXISTS alcohol;
+-- CREATE DATABASE alcohol;
 
 -- 1. tables creation
+
 
 -- subjects of system: alcoholic and inspector
 CREATE TABLE alcoholic(
@@ -45,7 +46,7 @@ CREATE TABLE alcoholic_bed(
     bed_id integer NOT NULL,
     alcoholic_id integer NOT NULL,
     date_from timestamp NOT NULL,
-    date_to timestamp NOT NULL,
+    date_to timestamp,
 
     foreign key (bed_id) references bed(bed_id),
     foreign key (alcoholic_id)references alcoholic(alcoholic_id)
@@ -112,37 +113,37 @@ CREATE INDEX most_vulnerable_alcoholic ON alcoholic(max_drink ASC);
 -- 3. data insertion
 
 -- objects and subjects data
-INSERT INTO alcoholic (name, max_drink, conscious) VALUES
-('Nigel Terrell', 1.0, True),
-('Rylee Sykes', 1.5, False),
-('Linda Chen', 0.75, False),
-('Ayanna Blanchard',0.6, True),
-('Hakeem Donovan', 2.0, True),
-('Gay Cochran', 2.1, False),
-('Kibo Scott', 3.0, False),
-('Ivory Swanson',1.9, True),
-('Jolie Singleton',1.75, True),
-('Cecilia Gutierrez', 0.5, True),
-('Jackson Taylor', 1.2,  False),
-('Tucker Vega', 0.75, False),
-('Jennifer Vincent', 0.6, True),
-('Brynn Sweet', 0.75, True),
-('Eleanor Foreman', 1.5, False),
-('Wynne Sandoval', 3.0, True),
-('Colton Carney', 3.3, True),
-('Zahir Barker', 1.25, False),
-('Hayley Blackwell', 0.25, True),
-('Hilel Strong', 0.33, True),
-('Galena Banks', 0.5, False),
-('Quinn Brennan', 0.5, False),
-('Forrest Mcneil', 0.75, False),
-('Wing Clayton', 1.5, False),
-('Caesar Villarreal', 1.0, False),
-('Fredericka Thomas', 2.0, False),
-('Nora Rich', 2.25, True),
-('Kameko Joyner', 2.5, True),
-('Jescie Prince', 1.75, False),
-('Ivor Bell', 3.0, False);
+INSERT INTO alcoholic (name, max_drink, conscious, enclosed) VALUES
+('Nigel Terrell', 1.0, True, True),
+('Rylee Sykes', 1.5, False, False),
+('Linda Chen', 0.75, False, False),
+('Ayanna Blanchard',0.6, True, False),
+('Hakeem Donovan', 2.0, True, False),
+('Gay Cochran', 2.1, False, True),
+('Kibo Scott', 3.0, False, True),
+('Ivory Swanson',1.9, True, True),
+('Jolie Singleton',1.75, True, True),
+('Cecilia Gutierrez', 0.5, True, True),
+('Jackson Taylor', 1.2,  False, True),
+('Tucker Vega', 0.75, False, True),
+('Jennifer Vincent', 0.6, True, False),
+('Brynn Sweet', 0.75, True, True),
+('Eleanor Foreman', 1.5, False, True),
+('Wynne Sandoval', 3.0, True, True),
+('Colton Carney', 3.3, True, True),
+('Zahir Barker', 1.25, False, False),
+('Hayley Blackwell', 0.25, True, False),
+('Hilel Strong', 0.33, True, False),
+('Galena Banks', 0.5, False, True),
+('Quinn Brennan', 0.5, False, False),
+('Forrest Mcneil', 0.75, False, False),
+('Wing Clayton', 1.5, False, False),
+('Caesar Villarreal', 1.0, False, False),
+('Fredericka Thomas', 2.0, False, False),
+('Nora Rich', 2.25, True, True),
+('Kameko Joyner', 2.5, True, True),
+('Jescie Prince', 1.75, False, False),
+('Ivor Bell', 3.0, False, True);
 
 INSERT INTO inspector (name) VALUES
 ('Ezekiel Chandler'),

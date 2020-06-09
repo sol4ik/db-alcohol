@@ -34,7 +34,7 @@
                 </select>
 
                 <label for="amount" class="label">and how much?</label>
-                <input type="number" name="amount" placeholder="1 liter" min="0" step="0.5">
+                <input type="number" name="amount" placeholder="1 liter" min="0" step="0.1">
 
             {% else %} {% if context.action == "enclose" %}
                 <input type="hidden" name="action" value="enclose">

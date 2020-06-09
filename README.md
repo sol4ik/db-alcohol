@@ -51,7 +51,26 @@ The last part of our task was to implement **web-interface for database manageme
 We implemented a web-application using Python **Flask** and **psycopg2** package to manage access to database.
 
 ### Usage
+You can try our application at [here](https://soberup.herokuapp.com/).
 
+At first you need to login as **alcoholic** or **sober-up inspector**. Then you can perform the following actions.
+
+**Alcoholic** has access to his personal profile as well as overall sober-up statistics (functional for performing SQL requests from the task).
+Alcoholic can also invite his friends for a drink who are not enclosed in sober-up and feel well (are conscious).
+If they drink too much (more than their limit) - one can loose consciousness for as long as 3 days.
+
+Each alcoholic can also earn some **awards** for being
+
+* most friendly soul, 
+* drinking master, 
+* drinking amateur, 
+* quick runner,
+* inspector's favourite or least favourite.
+
+They are displayed within personal profile and personal card at home page for every alcoholic.
+
+**Inspectors** have access to functional to enclose fainted alcoholics in the sober-up, release them or move the beds.
+They also can view all the sober-up statistics.
 
 ### For development 
 In order to start the application, you need to clone this repository and then run the following commands in the terminal.
@@ -62,6 +81,10 @@ In order to start the application, you need to clone this repository and then ru
     source venv/bin/activate
     
     pip install -r requirements.txt
+    
+    cd modules
+    python setup_db.py
+    cd ../
     
     export FLASK_APP=modules/app.py
     flask run

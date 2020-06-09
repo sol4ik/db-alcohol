@@ -15,16 +15,11 @@ def connect_to_db():
     Connect to Postgres database alcoholic.
     :return: psycopg2 connection object
     """
-    # conn = psycopg2.connect(host="localhost",
-    #                         port=5432,
-    #                         dbname="alcohol",
-    #                         user="postgres",
-    #                         password="postgres")
-    conn = psycopg2.connect(host="142.93.163.88",
-                            port=6006,
-                            dbname="db13",
-                            user="team13",
-                            password="passw13ord")
+    conn = psycopg2.connect(host="localhost",
+                            port=5432,
+                            dbname="alcohol",
+                            user="postgres",
+                            password="postgres")
     return conn
 
 
@@ -186,7 +181,12 @@ def home():
                 if response and response[0][0] < 5:
                     errors.append("you cannot release someone who haven't been to sober-up for at least 5 days!")
                 conn.commit()
-            else:  # action == "move"
+            elif data['action'] == "move":
+                cur.execute(f"""select enclosed from alcoholic where alcoholic_id={data['chosen_alcoholic_id']};""")
+                response = cur.fetchall()
+                if not response[0][0]:
+                    errors.append("you cannot move him - he is not even in the sober-up!")
+
                 cur.execute(f"""select count(*) from bed where taken = False;""")
                 response = cur.fetchall()
                 if response[0][0] == 0:
@@ -275,7 +275,7 @@ def action():
                                 ({action_data['chosen_alcoholic_id']}, current_date, NULL);""")
                 msgs.append("oops, your friend just fainted!")
 
-            msgs.append("seems like you has a lot of fun!")
+            msgs.append("seems like you had a lot of fun!")
 
         elif action_data['action'] == "enclose":
             cur.execute(f"""update alcoholic set enclosed = True where alcoholic_id = { action_data['chosen_alcoholic_id'] };""")
