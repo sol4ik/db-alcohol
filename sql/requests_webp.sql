@@ -110,7 +110,7 @@ LIMIT 1;
 -- needed????????????????????????????????????????????
 
 SELECT alcoholic_id FROM alcoholic
-WHERE coscious = false
+WHERE coscious = false;
 
 -- INSPECTOR’s POINT OF VIEW:
 --   FUNCTIONS:
@@ -120,7 +120,7 @@ WHERE coscious = false
 
 UPDATE alcoholic
 SET enclosed = true
-WHERE alcoholic_id = al_id
+WHERE alcoholic_id = al_id;
 
 INSERT INTO migrations VALUES
 (null, b_id, al_id, insp_id, NOW()::date)
@@ -130,15 +130,15 @@ INSERT INTO migrations VALUES
 -- option is deleted when alcoholic escaped or got released
 -- input: insp_id, al_id
 
-b_id = 
+
 SELECT bed_id FROM migrations
 WHERE alcoholic_id = al_id
 ORDER BY migration_date DESC
-LIMIT 1
+LIMIT 1;
 
 UPDATE alcoholic
 SET enclosed = false
-WHERE alcoholic_id = al_id
+WHERE alcoholic_id = al_id;
 
 INSERT INTO migrations VALUES
 (b_id, null, al_id, insp_id, NOW()::date)
@@ -147,14 +147,14 @@ INSERT INTO migrations VALUES
 -- option is added when alcoholic is closed
 -- input: al_id, new_bed_id
 
-prev_b_id = 
+
 SELECT bed_id FROM migrations
 WHERE alcoholic_id = al_id
 ORDER BY migration_date DESC
-LIMIT 1
+LIMIT 1;
 
 INSERT INTO migrations VALUES
-(prev_b_id, new_b_id, al_id, insp_id, NOW()::date)
+(prev_b_id, new_b_id, al_id, insp_id, NOW()::date);
 
 --   VISUAL:
 -- 1) Favourite (the one whom inspector released the biggest n of times)
@@ -181,18 +181,18 @@ LIMIT 1;
 -- needed????????????????????????????????????????????
 
 SELECT alcoholic_id FROM alcoholic
-WHERE coscious = false
+WHERE coscious = false;
 
 -- 4) Closed 
 -- make request every time escapes/is closed/released 
 -- needed????????????????????????????????????????????
 
 SELECT alcoholic_id FROM alcoholic
-WHERE enclosed = true
+WHERE enclosed = true;
 
 -- 5) Bed
 -- every time one escapes/is closed/released/moved from one bed to another
 
 SELECT alcoholic_id, bed_id FROM alcoholic_bed
-WHERE date_to = NULL
+WHERE date_to = NULL;
 

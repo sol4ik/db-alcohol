@@ -41,13 +41,47 @@ def get_alcoholic_stats():
     alcoholics['alcoholics'] = cur.fetchall()
     conn.commit()
 
-    alcoholics['friendly'] = alcoholics['alcoholics']
-    alcoholics['quick'] = alcoholics['alcoholics']
-    alcoholics['master'] = alcoholics['alcoholics']
+    # friendly alcoholics
+    cur.execute(f"""SELECT * FROM alcoholic WHERE alcoholic_id IN 
+                        (SELECT group_alcoholic.alcoholic_id FROM group_alcoholic
+                        GROUP BY group_alcoholic.alcoholic_id
+                        ORDER BY COUNT(DISTINCT group_id) DESC LIMIT 10);""")
+    alcoholics['friendly'] = cur.fetchall()
+    conn.commit()
+
+    # quick alcoholics
+    cur.execute(f"""SELECT * FROM alcoholic WHERE alcoholic_id IN 
+                        (SELECT escape.alcoholic_id FROM escape
+                        GROUP BY escape.alcoholic_id
+                        ORDER BY COUNT(DISTINCT escape_id) DESC LIMIT 10);""")
+    alcoholics['quick'] = cur.fetchall()
+    conn.commit()
 
     # inspector's favourite
-    alcoholics['favourite'] = alcoholics['alcoholics']
-    alcoholics['disfavourite'] = alcoholics['alcoholics']
+    cur.execute(f"""SELECT * FROM alcoholic WHERE alcoholic_id IN
+                        (SELECT alcoholic_id FROM migrations
+                        WHERE bed_from IS NULL
+                        GROUP BY migrations.alcoholic_id
+                        ORDER BY COUNT(DISTINCT migration_id) DESC 
+                        LIMIT 10);""")
+    alcoholics['favourite'] = cur.fetchall()
+    conn.commit()
+
+    # inspector's disfavourite
+    cur.execute(f"""SELECT * FROM alcoholic WHERE alcoholic_id IN
+                            (SELECT alcoholic_id FROM migrations
+                            WHERE bed_to IS NULL
+                            GROUP BY migrations.alcoholic_id
+                            ORDER BY COUNT(DISTINCT migration_id) DESC 
+                            LIMIT 10);""")
+    alcoholics['disfavourite'] = cur.fetchall()
+    conn.commit()
+
+    # drinking master
+    # cur.execute(f"""""")
+    alcoholics['master'] = alcoholics['alcoholics']
+
+    # drinking amateur
     alcoholics['amateur'] = alcoholics['alcoholics']
 
     cur.close()
@@ -171,11 +205,11 @@ def home():
     alcoholics = get_alcoholic_stats()
 
     context['alcoholics'] = alcoholics['alcoholics']
-    context['friendly'] = alcoholics['alcoholics']
-    context['quick'] = alcoholics['alcoholics']
-    context['master'] = alcoholics['alcoholics']
-    context['favourite'] = alcoholics['alcoholics']
-    context['disfavourite'] = alcoholics['alcoholics']
+    context['friendly'] = alcoholics['friendly']
+    context['quick'] = alcoholics['quick']
+    context['master'] = alcoholics['master']
+    context['favourite'] = alcoholics['favourite']
+    context['disfavourite'] = alcoholics['disfavourite']
     context['amateur'] = alcoholics['amateur']
 
     return render_template('home.html', context=context)
