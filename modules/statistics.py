@@ -146,7 +146,7 @@ def get_all_alcoholic():
     response = cur.fetchall()
     conn.commit()
     cur.close()
-    return render_template('alcoholic.html', result=response)
+    return render_template('response_table.html', result=response)
 
 
 @statistics.route('/inspector', methods=['GET'])
@@ -158,4 +158,4 @@ def get_all_inspector():
     conn.commit()
     cur.close()
     conn.close()
-    return render_template('inspector.html', result=response)
+    return render_template('response_table.html', result=response)
