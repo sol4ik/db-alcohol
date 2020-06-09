@@ -4,7 +4,10 @@ import json
 
 from help_functions import is_int
 
+from statistics import statistics
+
 app = Flask(__name__, static_folder='./templates/static')
+app.register_blueprint(statistics)
 
 
 def connect_to_db():

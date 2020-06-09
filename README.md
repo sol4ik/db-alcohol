@@ -51,15 +51,19 @@ The last part of our task was to implement **web-interface for database manageme
 We implemented a web-application using Python **Flask** and **psycopg2** package to manage access to database.
 
 ### Usage
-In order to start the application, you need to run the following commands in the terminal.
 
+
+### For development 
+In order to start the application, you need to clone this repository and then run the following commands in the terminal.
+    
+    cd db-alcohol
+    
     virtualenv venv
     source venv/bin/activate
     
     pip install -r requirements.txt
     
-    export FLASK_APP=modules/main.py
+    export FLASK_APP=modules/app.py
     flask run
 
-
-### For development 
+Now you're welcome to work with our project!
