@@ -24,18 +24,24 @@ def create_and_fill():
     with conn.cursor() as cur:
         cur.execute(open("../sql/alcohol.sql", 'r').read())
 
+    conn.commit()
     conn.close()
 
 
 def test():
+    """
+    Little test for db creation and data filling.
+    :return:
+    """
     conn = connect_to_db()
-    cur = conn.cursor()
 
-    cur.execute("select * from alcoholic where enclosed = False;")
-    print(cur.fetchall())
+    with conn.cursor() as cur:
+        cur.execute("select * from alcoholic where conscious = True;")
+        print(cur.fetchall())
+        # cur.execute("insert into alcoholic_bed(alcoholic_id, bed_id, date_from, date_to) values
+        #              (1, 1, current_date, null)")
 
     conn.commit()
-    cur.close()
     conn.close()
 
 

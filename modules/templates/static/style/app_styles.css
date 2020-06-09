@@ -12,6 +12,7 @@
 .msg {
   padding: 25px 10px 0 10px;
   font-size: 20px;
+  font-weight: bold;
 }
 .error-msg {
   color: red;
@@ -130,7 +131,7 @@ input, select {
 
 /*profile styles*/
 .profile-img {
-  width: 95%;
+  width: 300px;
 }
 .profile-icons {
   margin: 20px;
