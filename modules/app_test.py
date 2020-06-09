@@ -63,6 +63,10 @@ class Requests:
         return cur.fetchall()
 
     @staticmethod
+    def request7(conn, cur, data):
+        pass
+
+    @staticmethod
     def request8(conn, cur, data):
         cur.execute(
             f"""select migration_date                                                              as event_date,
@@ -81,6 +85,10 @@ class Requests:
         return cur.fetchall()
 
     @staticmethod
+    def request9(conn, cur, data):
+        pass
+
+    @staticmethod
     def request10(conn, cur, data):
         cur.execute(
             f"""select to_char(escape_date, 'MM') as "Months", count(bed_id)
@@ -89,6 +97,10 @@ class Requests:
                 order by "Months";""")
         conn.commit()
         return cur.fetchall()
+
+    @staticmethod
+    def request11(conn, cur, data):
+        pass
 
     @staticmethod
     def request12(conn, cur, data):

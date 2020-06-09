@@ -55,7 +55,7 @@ from alcohol
 --          inner join (select * from group_alcoholic where a.name = 10) g on ga.group_id = g.group_id
 group by alcohol.name, count_alcoholics
  order by count_alcoholics desc;
--- для алкоголiка A знайти усiх iнспекторiв, якi забирали його у витверезник принаймнi N
+-- 1) для алкоголiка A знайти усiх iнспекторiв, якi забирали його у витверезник принаймнi N
 -- разiв за вказаний перiод (з дати F по дату T);
 
 SELECT i.name AS inspector
@@ -68,7 +68,7 @@ GROUP BY i.inspector_id, a.name
 HAVING COUNT(c.inspector_id) >= N
    AND a.name = A
 
--- для iнспектора I знайти усiх алкоголiкiв, яких вiн забирав хоча б N разiв за вказаний перiод
+-- 3) для iнспектора I знайти усiх алкоголiкiв, яких вiн забирав хоча б N разiв за вказаний перiод
 -- (з дати F по дату T);
 
 SELECT a.name AS alcoholic
@@ -81,7 +81,7 @@ GROUP BY a.alcoholic_id, i.name
 HAVING COUNT(c.alcoholic_id) >= N
    AND i.name = I
 
--- для алкоголiка A знайти усiх iнспекторiв, якi забирали його меншу кiлькiсть разiв нiж
+-- 5) для алкоголiка A знайти усiх iнспекторiв, якi забирали його меншу кiлькiсть разiв нiж
 -- випускали;
 
 SELECT inspector.name AS inspector
@@ -92,7 +92,7 @@ WHERE alcoholic_id = A
 GROUP BY inspector.inspector_id
 HAVING COUNT(DISTINCT release_id) > COUNT(DISTINCT closure_id)
 
--- знайти усiх алкоголiкiв, яких забирали у витверезник хоча б N разiв за вказаний перiод (з
+-- 7) знайти усiх алкоголiкiв, яких забирали у витверезник хоча б N разiв за вказаний перiод (з
 -- дати F по дату T);
 
 SELECT a.name
@@ -103,7 +103,7 @@ WHERE c.closure_date > F
 GROUP BY c.alcoholic_id, a.name
 HAVING COUNT(c.alcoholic_id) >= N
 
--- для алкоголiка A та кожного спиртого напою, що вiн вживав, знайти скiльки разiв за вказаний 
+-- 9) для алкоголiка A та кожного спиртого напою, що вiн вживав, знайти скiльки разiв за вказаний
 -- перiод (з дати F по дату T) вiн розпивав напiй у групi з щонайменше N алкоголiкiв;
 -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

@@ -14,7 +14,7 @@
     <title>Hello, world!</title>
 </head>
 <body>
-
+{#1 request#}
 <div class="jumbotron mb-4">
     <h4 class="text-justify">All inspectors who took alcoholic to the sobering-up station at least N
         times during the specified period (from date F to date T)</h4>
@@ -35,8 +35,6 @@
             </div>
             <div class="form-group col-md-3 col-lg-2 text-center">
                 <label for="qty">Number of times</label>
-                <label for="qty">Number of times</label>
-
                 <input id="qty" type="number" class="form-control" name="qty">
             </div>
             <div class="col-md-1 col-lg-3 align-self-end">
@@ -48,6 +46,7 @@
     </form>
 
 </div>
+{#2 request#}
 <div class="jumbotron mb-4">
     <h4 class="text-justify">All the beds of the sobering-up room where he fought for the specified period (with dates F
         after date T);</h4>
@@ -75,6 +74,35 @@
     </form>
 
 </div>
+{#3 request#}
+<div class="jumbotron mb-4">
+    <h4 class="text-justify">All alcoholics whom inspector took away at least N times for the specified period (from
+        date F to date T)</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-3  text-center">
+                <label for="date_from">Date from</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-3  text-center">
+                <label for="date_to">Date to</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 col-lg-3 col-xl-3 text-center">
+                <label for="i_name">The full name of the inspector</label>
+
+                <input id="i_name" type="text" class="form-control" name="i_name" placeholder="Lane Mosley">
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-yellow form-control " style="margin-bottom: 16px" name="btn"
+                        value="request3">Search
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{#4 request#}
 <div class="jumbotron mb-4">
     <h4 class="text-justify">All the beds in the sobering-up room from which alcoholic escaped during the specified
         period (from date F to date T)</h4>
@@ -102,6 +130,27 @@
     </form>
 
 </div>
+{#5 request#}
+<div class="jumbotron mb-4">
+
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <h4 class="text-justify col-md-12 col-xl-6">For alcoholic A to find all the inspectors who took him less
+                times than released</h4>
+            <div class="form-group col-md-12 col-xl-3 text-center">
+                <label for="name">The full name of the alcoholic</label>
+
+                <input id="name" type="text" class="form-control" name="name" placeholder="Jolie Singleton">
+            </div>
+            <div class="col-md-12 col-lg-3 mx-auto align-self-end">
+                <button type="submit" class="btn btn-yellow form-control " style="margin-bottom: 16px" name="btn"
+                        value="request5">Search
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{#6 request#}
 <div class="jumbotron mb-4">
     <h4 class="text-justify">All inspectors who took at least N different alcoholics during the specified period (from
         date F to date T)</h4>
@@ -129,9 +178,37 @@
     </form>
 
 </div>
+{#7 request#}
 <div class="jumbotron mb-4">
-    <h4 class="text-justify">All common events for alcoholic A and inspector I for the specified period (from date F to date T)
-</h4>
+    <h4 class="text-justify">All alcoholics who were taken to a sobering-up station at least N times for the specified period (from date F to date T)</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-3  col-xl-3 text-center">
+                <label for="date_from">Date from</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-3 col-xl-3 text-center">
+                <label for="date_to">Date to</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-3 col-xl-3 text-center">
+                <label for="qty">Number of times</label>
+                <input id="qty" type="number" class="form-control" name="qty">
+            </div>
+            <div class="col-md-3 col-xl-3 align-self-end">
+                <button type="submit" class="btn btn-yellow form-control "
+                        style="margin-bottom: 16px" name="btn" value="request7">Search
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{#8 request#}
+<div class="jumbotron mb-4">
+    <h4 class="text-justify">All common events for alcoholic A and inspector I for the specified period (from date F to
+        date T)
+    </h4>
     <form method="POST" role="form" class="form-horizontal">
         <div class="form-row">
             <div class="form-group  col-md-3  col-lg-2 col-xl-1 text-center">
@@ -160,6 +237,39 @@
         </div>
     </form>
 </div>
+{#9 request#}
+<div class="jumbotron mb-4">
+    <h4 class="text-justify">For alcoholic A and each alcoholic beverage he consumed, find how many times for the specified period (from date F to date T) he drank a drink in a group of at least N alcoholics</h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-2  col-lg-2 text-center">
+                <label for="date_from">Date from</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-2 col-lg-2 text-center">
+                <label for="date_to">Date to</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-4 col-xl-3 text-center">
+                <label for="name">The full name of alcoholic</label>
+
+                <input id="name" type="text" class="form-control" name="name" placeholder="Jolie Singleton">
+            </div>
+            <div class="form-group col-md-3 col-xl-2 text-center">
+                <label for="qty">Number of alcoholics</label>
+
+                <input id="qty" type="number" class="form-control" name="qty">
+            </div>
+            <div class="col-md-1 col-xl-3 align-self-end">
+                <button type="submit" class="btn btn-yellow form-control "
+                        style="margin-bottom: 16px" name="btn" value="request9">Search
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{#10 request#}
 <div class="jumbotron mb-4">
 
     <form method="POST" role="form" class="form-horizontal">
@@ -173,9 +283,37 @@
         </div>
     </form>
 </div>
+{#11 request#}
+<div class="jumbotron mb-4">
+    <h4 class="text-justify">All sobering-up beds in descending order of the average number of loss of consciousness for all alcoholics brought to bed by Inspector I for the specified period (from date F to date T)
+    </h4>
+    <form method="POST" role="form" class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group  col-md-2   col-xl-3 text-center">
+                <label for="date_from">Date from</label>
+                <input id='date_from' type="date" class="form-control" name="date_from" placeholder="F">
+            </div>
+            <div class="form-group col-md-2  col-xl-3 text-center">
+                <label for="date_to">Date to</label>
+                <input id="date_to" type="date" class="form-control" name="date_to" placeholder="T">
+            </div>
+            <div class="form-group col-md-5 col-xl-3 text-center">
+                <label for="i_name">The full name of the inspector</label>
+
+                <input id="i_name" type="text" class="form-control" name="i_name" placeholder="Lane Mosley">
+            </div>
+            <div class=" col-md-3  col-xl-3  align-self-end">
+                <button type="submit" class="btn btn-yellow form-control " style="margin-bottom: 16px" name="btn"
+                        value="request11">Search
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{#12 request#}
 <div class="jumbotron mb-4">
     <h4 class="text-justify">Alcoholic beverages in descending order of the total number of alcoholics
-         drank with alcoholic A for the specified period (from date F to date T)</h4>
+        drank with alcoholic A for the specified period (from date F to date T)</h4>
     <form method="POST" role="form" class="form-horizontal">
         <div class="form-row">
             <div class="form-group col-md-3  text-center">
@@ -200,6 +338,7 @@
     </form>
 
 </div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
