@@ -203,9 +203,18 @@ def requests():
             # print(dict(response[0]))
             cur.close()
             conn.close()
+            success = True
             if not response:
-                return "<h3>404, Немає результату за цим запитом</h3>"
-            return render_template('response_table.html', result=response)
+                success = False
+            context = {
+                'success': success,
+                'response': response,
+                'user_data': {
+                    'user_type': data['user_type'],
+                    'user_id': data['user_id']
+                }
+            }
+            return render_template('response_table.html', context=context)
     return render_template('requests.html')
 
 

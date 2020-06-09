@@ -23,6 +23,9 @@
     <h4 class="text-justify">All inspectors who took alcoholic to the sobering-up station at least N
         times during the specified period (from date F to date T)</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-3  col-lg-2 text-center">
                 <label for="date_from">Date from</label>
@@ -55,6 +58,9 @@
     <h4 class="text-justify">All the beds of the sobering-up room where he fought for the specified period (with dates F
         after date T);</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-3  text-center">
                 <label for="date_from">Date from</label>
@@ -83,6 +89,9 @@
     <h4 class="text-justify">All alcoholics whom inspector took away at least N times for the specified period (from
         date F to date T)</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-2  col-xl-2 text-center">
                 <label for="date_from">Date from</label>
@@ -115,6 +124,9 @@
     <h4 class="text-justify">All the beds in the sobering-up room from which alcoholic escaped during the specified
         period (from date F to date T)</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-3  text-center">
                 <label for="date_from">Date from</label>
@@ -142,6 +154,9 @@
 <div class="jumbotron mb-4">
 
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <h4 class="text-justify col-md-12 col-xl-6">For alcoholic A to find all the inspectors who took him less
                 times than released</h4>
@@ -163,6 +178,9 @@
     <h4 class="text-justify">All inspectors who took at least N different alcoholics during the specified period (from
         date F to date T)</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-3  text-center">
                 <label for="date_from">Date from</label>
@@ -191,6 +209,9 @@
     <h4 class="text-justify">All alcoholics who were taken to a sobering-up station at least N times for the specified
         period (from date F to date T)</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-3  col-xl-3 text-center">
                 <label for="date_from">Date from</label>
@@ -219,6 +240,9 @@
         date T)
     </h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group  col-md-3  col-lg-2 col-xl-1 text-center">
                 <label for="date_from">Date from</label>
@@ -251,6 +275,9 @@
     <h4 class="text-justify">For alcoholic A and each alcoholic beverage he consumed, find how many times for the
         specified period (from date F to date T) he drank a drink in a group of at least N alcoholics</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-2  col-lg-2 text-center">
                 <label for="date_from">Date from</label>
@@ -283,6 +310,9 @@
 <div class="jumbotron mb-4">
 
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <h4 class="text-justify col-md-12 col-lg-9">The total number of escapes from the sobering-up by months</h4>
             <div class="col-md-12 col-lg-3 mx-auto">
@@ -299,6 +329,9 @@
         all alcoholics brought to bed by Inspector I for the specified period (from date F to date T)
     </h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group  col-md-2   col-xl-3 text-center">
                 <label for="date_from">Date from</label>
@@ -326,6 +359,9 @@
     <h4 class="text-justify">Alcoholic beverages in descending order of the total number of alcoholics
         drank with alcoholic A for the specified period (from date F to date T)</h4>
     <form method="POST" role="form" class="form-horizontal">
+        <input type="hidden" name="user_type" value="{{ request.args.get('user_type') }}">
+        <input type="hidden" name="user_id" value="{{ request.args.get('user_id') }}">
+
         <div class="form-row">
             <div class="form-group col-md-3  text-center">
                 <label for="date_from">Date from</label>
