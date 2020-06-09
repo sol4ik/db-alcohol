@@ -2,25 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import json
 
-from help_functions import is_int
+from help_functions import is_int, connect_to_db
 
 from statistics import statistics
 
 app = Flask(__name__, static_folder='./templates/static')
 app.register_blueprint(statistics)
-
-
-def connect_to_db():
-    """
-    Connect to Postgres database alcoholic.
-    :return: psycopg2 connection object
-    """
-    conn = psycopg2.connect(host="localhost",
-                            port=5432,
-                            dbname="alcohol",
-                            user="postgres",
-                            password="postgres")
-    return conn
 
 
 def get_alcoholic_stats():

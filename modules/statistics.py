@@ -2,15 +2,10 @@ from flask import request, render_template, Blueprint
 import psycopg2
 from psycopg2.extras import NamedTupleCursor
 
+
+from help_functions import connect_to_db
+
 statistics = Blueprint('statistics', __name__, static_folder='./templates/static')
-
-
-# @app.teardown_appcontext
-# def close_conn(e):
-#     print('CLOSING CONN')
-#     db = g.pop('db', None)
-#     if db is not None:
-#         app.config['postgreSQL_pool'].putconn(db)
 
 
 class Requests:
@@ -176,19 +171,6 @@ class Requests:
                 order by count_alcoholics desc;""")
         conn.commit()
         return cur.fetchall()
-
-
-def connect_to_db():
-    """
-    Connect to Postgres database alcoholic.
-    :return: psycopg2 connection object
-    """
-    conn = psycopg2.connect(host="localhost",
-                            port=5432,
-                            dbname="alcohol",
-                            user="postgres",
-                            password="postgres")
-    return conn
 
 
 @statistics.route('/requests', methods=['GET', 'POST'])
