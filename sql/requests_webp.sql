@@ -62,6 +62,11 @@ UPDATE alcoholic
 SET enclosed = false
 WHERE alcoholic_id = al_id
 
+UPDATE bed 
+SET alcoholic_id = null, 
+    taken = false
+WHERE bed_id = b_id
+
 --   VISUAL:
 -- 1) The most friendly (the one in the biggest number of groups)
 -- check every time one joins the company
@@ -108,11 +113,12 @@ select alcoholic_id from group_alcohol
 select alcoholic_id from faints group by alcoholic_id
     order by count(distinct date_from) desc limit 10;
 
-
 -- 7) Lost consciousness (marked the time one lost consciousness)
 
 SELECT alcoholic_id FROM alcoholic
 WHERE coscious = false;
+
+
 
 -- INSPECTOR’s POINT OF VIEW:
 --   FUNCTIONS:
@@ -127,11 +133,15 @@ WHERE alcoholic_id = al_id;
 INSERT INTO migrations VALUES
 (null, b_id, al_id, insp_id, NOW()::date)
 
+UPDATE bed 
+SET alcoholic_id = al_id, 
+    taken = true
+WHERE bed_id = b_id
+
 -- 2) Release an alcoholic (alcoholic is enclosed? release (change migration 
 -- option is added when alcoholic is enclosed
 -- option is deleted when alcoholic escaped or got released
 -- input: insp_id, al_id
-
 
 SELECT bed_id FROM migrations
 WHERE alcoholic_id = al_id
@@ -142,18 +152,33 @@ UPDATE alcoholic
 SET enclosed = false
 WHERE alcoholic_id = al_id;
 
+UPDATE bed 
+SET alcoholic_id = null, 
+    taken = false
+WHERE bed_id = b_id
+
 INSERT INTO migrations VALUES
 (b_id, null, al_id, insp_id, NOW()::date)
 
 -- 3) Move an alcoholic from one bed to another
 -- option is added when alcoholic is closed
--- input: al_id, new_bed_id
+-- input: al_id, new_b_id
 
-
+prev_b_id = 
 SELECT bed_id FROM migrations
 WHERE alcoholic_id = al_id
 ORDER BY migration_date DESC
 LIMIT 1;
+
+UPDATE bed 
+SET alcoholic_id = al_id, 
+    taken = true
+WHERE bed_id = new_b_id
+
+UPDATE bed 
+SET alcoholic_id = null, 
+    taken = false
+WHERE bed_id = prev_b_id
 
 INSERT INTO migrations VALUES
 (prev_b_id, new_b_id, al_id, insp_id, NOW()::date);
