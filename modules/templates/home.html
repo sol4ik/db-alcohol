@@ -13,7 +13,9 @@
             </div>
         {% endif %}
         <div class="button small-btn yellow-btn center-text">
-                <a href="{{ url_for('statistics.requests') }}">sober-up statistics</a>
+                <a href="{{ url_for('statistics.requests', user_id=context.user_data.user_id, user_type=context.user_data.user_type) }}">
+                    sober-up statistics
+                </a>
         </div>
         <div class="button small-btn white-btn center-text">
                 <a href="{{ url_for('login_page') }}">log out</a>

@@ -38,6 +38,7 @@ html, body, form, input[type=submit], select {
   border-radius: 4px;
   cursor: pointer;
   font-size: 18px;
+    font-weight: bold;
 }
 .button:hover, .yellow-btn:hover {
   opacity: 0.8;
@@ -74,6 +75,10 @@ html, body, form, input[type=submit], select {
 .button a {
     text-decoration: none;
     color: white;
+}
+.button a:hover {
+    color: white;
+    text-decoration: none;
 }
 .white-btn a {
     color: #F9A825;
