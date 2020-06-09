@@ -55,62 +55,68 @@ from alcohol
 --          inner join (select * from group_alcoholic where a.name = 10) g on ga.group_id = g.group_id
 group by alcohol.name, count_alcoholics
  order by count_alcoholics desc;
+        
+        
 -- 1) для алкоголiка A знайти усiх iнспекторiв, якi забирали його у витверезник принаймнi N
 -- разiв за вказаний перiод (з дати F по дату T);
 
-SELECT i.name AS inspector
-FROM inspector i
-         INNER JOIN closure c ON (i.inspector_id = c.inspector_id)
-         INNER JOIN alcoholic a ON (c.alcoholic_id = a.alcoholic_id)
-WHERE c.closure_date > F
-  AND c.closure_date < T
-GROUP BY i.inspector_id, a.name
-HAVING COUNT(c.inspector_id) >= N
-   AND a.name = A
+SELECT inspector_id FROM migrations
+WHERE bed_to IS NOT NULL
+  AND bed_from IS NULL
+  AND migration_date > F
+  AND migration_date < T
+GROUP BY inspector_id, alcoholic_id
+HAVING COUNT(inspector_id) >= N
+  AND alcoholic_id = A
 
 -- 3) для iнспектора I знайти усiх алкоголiкiв, яких вiн забирав хоча б N разiв за вказаний перiод
 -- (з дати F по дату T);
 
-SELECT a.name AS alcoholic
-FROM alcoholic a
-         INNER JOIN closure c ON (i.alcoholic_id = c.alcoholic_id)
-         INNER JOIN inspector a ON (c.inspector_id = a.inspector_id)
-WHERE c.closure_date > F
-  AND c.closure_date < T
-GROUP BY a.alcoholic_id, i.name
-HAVING COUNT(c.alcoholic_id) >= N
-   AND i.name = I
+SELECT alcoholic_id FROM migrations
+WHERE bed_to IS NOT NULL
+  AND bed_from IS NULL
+  AND migration_date > F
+  AND migration_date < T
+GROUP BY alcoholic_id, inspector_id
+HAVING COUNT(alcoholic_id) >= N
+  AND inspector_id = I
 
 -- 5) для алкоголiка A знайти усiх iнспекторiв, якi забирали його меншу кiлькiсть разiв нiж
 -- випускали;
 
-SELECT inspector.name AS inspector
-FROM inspector
-         INNER JOIN release USING (inspector_id)
-         INNER JOIN closure USING (alcoholic_id)
-WHERE alcoholic_id = A
-GROUP BY inspector.inspector_id
-HAVING COUNT(DISTINCT release_id) > COUNT(DISTINCT closure_id)
+SELECT alcoholic_id, COUNT(bed_to) AS closure_count, COUNT(*) - COUNT(bed_to) as release_count
+FROM migrations 
+WHERE bed_from IS NULL OR bed_to IS NULL
+GROUP BY migrations.alcoholic_id
 
 -- 7) знайти усiх алкоголiкiв, яких забирали у витверезник хоча б N разiв за вказаний перiод (з
 -- дати F по дату T);
 
-SELECT a.name
-FROM alcoholic a
-         INNER JOIN closure c ON (a.alcoholic_id = c.alcoholic_id)
-WHERE c.closure_date > F
-  AND c.closure_date < T
-GROUP BY c.alcoholic_id, a.name
-HAVING COUNT(c.alcoholic_id) >= N
+SELECT alcoholic_id FROM migrations
+WHERE bed_to IS NOT NULL
+  AND bed_from IS NULL
+  AND migration_date > F
+  AND migration_date < T
+GROUP BY alcoholic_id
+HAVING COUNT(migration_id) >= N
 
--- 9) для алкоголiка A та кожного спиртого напою, що вiн вживав, знайти скiльки разiв за вказаний
+-- 9) для алкоголiка A та кожного спиртого напою, що вiн вживав, знайти скiльки разiв за вказаний 
 -- перiод (з дати F по дату T) вiн розпивав напiй у групi з щонайменше N алкоголiкiв;
--- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
--- SELECT alcohol.name, COUNT() 
--- FROM alcohol
--- INNER JOIN group_alcohol USING alcohol_id
--- INNER JOIN group_alcoholic USING alcoholic_id
--- WHERE date > '2005-07-07'
---     AND date < '2100-07-07'
--- GROUP BY 
+SELECT alcoholic_id, alcohol_id, COUNT(DISTINCT alcohol_id)
+FROM group_alcoholic
+INNER JOIN group_alcohol USING (group_id)
+WHERE group_alcohol.count_alcoholics >= N
+GROUP BY group_alcoholic.alcoholic_id, group_alcohol.alcohol_id
+
+-- 11) вивести лiжка витверезника у порядку спадання середньої кiлькостi втрат свiдомостi для
+-- усiх алкоголiкiв, що були приведенi на лiжко iнспектором I за вказаний перiод (з дати F по
+-- дату T);
+
+SELECT bed_to AS bed_id FROM migrations m
+INNER JOIN faints USING (alcoholic_id)
+WHERE m.bed_to IS NOT NULL
+  AND m.bed_from IS NULL
+  AND m.inspector_id = I
+GROUP BY m.bed_to
+ORDER BY COUNT(DISTINCT faint_id) DESC
