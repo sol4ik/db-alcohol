@@ -229,4 +229,4 @@ def get_all_inspector():
     conn.commit()
     cur.close()
     conn.close()
-    return render_template('inspector.html', result=response)
+    return render_template('response_table.html', result=response)
