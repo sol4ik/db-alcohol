@@ -17,7 +17,6 @@ INSERT INTO group_alcohol (group_id, count_alcoholics, alcohol_id, amount_drunk,
 -- 2) Drink ((for a whole group) add amount of drink to an *amount_drunk and check if not max? сontinue: -- mark *conscious False
 -- input: input_group_id
 
-faint_ids =
 SELECT * FROM group_alcohol
 INNER JOIN group_alcohol USING (group_id)
 INNER JOIN alcoholic USING (alcoholic_id)
@@ -97,20 +96,23 @@ LIMIT 1;
 
 -- 5) Drinking master (the one who drank the most (check every time one takes one 
 -- more portion of alcohol))
--- don't have this column in a table
 
-
+select alcoholic_id from group_alcohol
+    join group_alcoholic on group_alcohol.group_id = group_alcoholic.group_id
+    group by alcoholic_id
+    order by sum(amount_drunk / count_alcoholics) desc limit 1;
 
 -- 6) Drinking amateur (the one who have lost consciousness the bigger n of times 
 -- check every time alcoholics drink
--- don't have this column in a table
+
+select alcoholic_id from faints group by alcoholic_id
+    order by count(distinct date_from) desc limit 10;
 
 
 -- 7) Lost consciousness (marked the time one lost consciousness)
--- needed????????????????????????????????????????????
 
 SELECT alcoholic_id FROM alcoholic
-WHERE coscious = false
+WHERE coscious = false;
 
 -- INSPECTOR’s POINT OF VIEW:
 --   FUNCTIONS:
@@ -120,7 +122,7 @@ WHERE coscious = false
 
 UPDATE alcoholic
 SET enclosed = true
-WHERE alcoholic_id = al_id
+WHERE alcoholic_id = al_id;
 
 INSERT INTO migrations VALUES
 (null, b_id, al_id, insp_id, NOW()::date)
@@ -130,15 +132,15 @@ INSERT INTO migrations VALUES
 -- option is deleted when alcoholic escaped or got released
 -- input: insp_id, al_id
 
-b_id = 
+
 SELECT bed_id FROM migrations
 WHERE alcoholic_id = al_id
 ORDER BY migration_date DESC
-LIMIT 1
+LIMIT 1;
 
 UPDATE alcoholic
 SET enclosed = false
-WHERE alcoholic_id = al_id
+WHERE alcoholic_id = al_id;
 
 INSERT INTO migrations VALUES
 (b_id, null, al_id, insp_id, NOW()::date)
@@ -147,14 +149,14 @@ INSERT INTO migrations VALUES
 -- option is added when alcoholic is closed
 -- input: al_id, new_bed_id
 
-prev_b_id = 
+
 SELECT bed_id FROM migrations
 WHERE alcoholic_id = al_id
 ORDER BY migration_date DESC
-LIMIT 1
+LIMIT 1;
 
 INSERT INTO migrations VALUES
-(prev_b_id, new_b_id, al_id, insp_id, NOW()::date)
+(prev_b_id, new_b_id, al_id, insp_id, NOW()::date);
 
 --   VISUAL:
 -- 1) Favourite (the one whom inspector released the biggest n of times)
@@ -181,18 +183,18 @@ LIMIT 1;
 -- needed????????????????????????????????????????????
 
 SELECT alcoholic_id FROM alcoholic
-WHERE coscious = false
+WHERE coscious = false;
 
 -- 4) Closed 
 -- make request every time escapes/is closed/released 
 -- needed????????????????????????????????????????????
 
 SELECT alcoholic_id FROM alcoholic
-WHERE enclosed = true
+WHERE enclosed = true;
 
 -- 5) Bed
 -- every time one escapes/is closed/released/moved from one bed to another
 
 SELECT alcoholic_id, bed_id FROM alcoholic_bed
-WHERE date_to = NULL
+WHERE date_to = NULL;
 
