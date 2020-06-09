@@ -17,7 +17,6 @@ INSERT INTO group_alcohol (group_id, count_alcoholics, alcohol_id, amount_drunk,
 -- 2) Drink ((for a whole group) add amount of drink to an *amount_drunk and check if not max? сontinue: -- mark *conscious False
 -- input: input_group_id
 
-faint_ids =
 SELECT * FROM group_alcohol
 INNER JOIN group_alcohol USING (group_id)
 INNER JOIN alcoholic USING (alcoholic_id)
@@ -97,17 +96,20 @@ LIMIT 1;
 
 -- 5) Drinking master (the one who drank the most (check every time one takes one 
 -- more portion of alcohol))
--- don't have this column in a table
 
-
+select alcoholic_id from group_alcohol
+    join group_alcoholic on group_alcohol.group_id = group_alcoholic.group_id
+    group by alcoholic_id
+    order by sum(amount_drunk / count_alcoholics) desc limit 1;
 
 -- 6) Drinking amateur (the one who have lost consciousness the bigger n of times 
 -- check every time alcoholics drink
--- don't have this column in a table
+
+select alcoholic_id from faints group by alcoholic_id
+    order by count(distinct date_from) desc limit 10;
 
 
 -- 7) Lost consciousness (marked the time one lost consciousness)
--- needed????????????????????????????????????????????
 
 SELECT alcoholic_id FROM alcoholic
 WHERE coscious = false;

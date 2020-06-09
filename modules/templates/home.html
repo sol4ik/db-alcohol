@@ -14,7 +14,6 @@
         {% endif %}
         <div class="button small-btn yellow-btn center-text">
                 <a href="{{ url_for('statistics.requests') }}">sober-up statistics</a>
-{#            <a href="#">sober-up statistics</a>#}
         </div>
         <div class="button small-btn white-btn center-text">
                 <a href="{{ url_for('login_page') }}">log out</a>
@@ -53,6 +52,7 @@
                 {% if alcoholic in context.amateur and context.user_data.user_type == "alcoholic"  %}
                     <img class="card-icon" src="static/icons/amateur.svg" title="drinking amateur">
                 {% endif %}
+                <img class="card-icon" src="static/icons/trophy.svg" title="alcoholic's trophies">
             </div>
             {% set img_num = alcoholic[0] % 4 + 1%}
             {% if img_num == 1 %}

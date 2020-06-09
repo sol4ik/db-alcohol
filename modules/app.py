@@ -78,11 +78,20 @@ def get_alcoholic_stats():
     conn.commit()
 
     # drinking master
-    # cur.execute(f"""""")
-    alcoholics['master'] = alcoholics['alcoholics']
+    cur.execute(f"""select * from alcoholic where alcoholic_id in	
+                        (select alcoholic_id from group_alcohol
+                        join group_alcoholic on group_alcohol.group_id = group_alcoholic.group_id
+                        group by alcoholic_id
+                        order by sum(amount_drunk / count_alcoholics) desc limit 10);""")
+    alcoholics['master'] = cur.fetchall()
+    conn.commit()
 
     # drinking amateur
-    alcoholics['amateur'] = alcoholics['alcoholics']
+    cur.execute(f"""select * from alcoholic where alcoholic_id in
+                        (select alcoholic_id from faints group by alcoholic_id
+                        order by count(distinct date_from) desc limit 10);""")
+    alcoholics['amateur'] = cur.fetchall()
+    conn.commit()
 
     cur.close()
     conn.close()
