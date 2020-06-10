@@ -6,11 +6,11 @@ def connect_to_db():
     Connect to Postgres database alcoholic.
     :return: psycopg2 connection object
     """
-    conn = psycopg2.connect(host="142.93.163.88",
-                            port=6006,
-                            dbname="db13",
-                            user="team13",
-                            password="passw13ord")
+    conn = psycopg2.connect(host="localhost",
+                            port=5432,
+                            dbname="alcohol",
+                            user="postgres",
+                            password="postgres")
     return conn
 
 
