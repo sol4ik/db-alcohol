@@ -51,7 +51,7 @@ The last part of our task was to implement **web-interface for database manageme
 We implemented a web-application using Python **Flask** and **psycopg2** package to manage access to database.
 
 ### Usage
-You can try our application at [here](https://soberup.herokuapp.com/).
+You can try our application [here](https://soberup.herokuapp.com/).
 
 At first you need to login as **alcoholic** or **sober-up inspector**. Then you can perform the following actions.
 
